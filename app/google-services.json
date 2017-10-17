@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "911951970080",
+    "firebase_url": "https://snapnotes-43bc2.firebaseio.com",
+    "project_id": "snapnotes-43bc2",
+    "storage_bucket": "snapnotes-43bc2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911951970080:android:4b2caecb21415f43",
+        "android_client_info": {
+          "package_name": "com.example.martinruiz.snapnotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911951970080-tcpjm046lbe58ftr2ss5v1r0j3mgqsmv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.martinruiz.snapnotes",
+            "certificate_hash": "3428073e89b76510adc17b163c6e4b84d2d60b91"
+          }
+        },
+        {
+          "client_id": "911951970080-46lnuoqdhs83a6eeubie28vq003mikkt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJRIAMl1jp0HvGQKDXzaGEVJbu52YOXr8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "911951970080-46lnuoqdhs83a6eeubie28vq003mikkt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
