@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.martinruiz.snapnotes.fragments.ProfileFragment"
-    android:background="@color/light_blue">
+    tools:background="@color/light_purple"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Profile Fragment" />
+        android:layout_marginTop="80dp"
+        android:background="@drawable/card_background"
+        />
 
 </FrameLayout>
