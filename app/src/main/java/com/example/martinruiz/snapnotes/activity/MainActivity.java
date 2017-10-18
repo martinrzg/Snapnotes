@@ -1,5 +1,6 @@
 package com.example.martinruiz.snapnotes.activity;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.ma_background_view) View backgroundView;
+    @BindView(R.id.view_background) View backgroundView;
     @BindView(R.id.ma_view_pager) ViewPager viewPager;
 
     private MainPageAdapter adapter;
@@ -26,6 +27,34 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new MainPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
+
+        final int blue   = ContextCompat.getColor(this, R.color.light_blue);
+        final int purple = ContextCompat.getColor(this, R.color.light_purple);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if(position == 0){
+                    backgroundView.setBackgroundColor(blue);
+                    backgroundView.setAlpha(1-positionOffset);
+                }
+                else if(position == 1){
+                    backgroundView.setBackgroundColor(purple);
+                    backgroundView.setAlpha(positionOffset);
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
 
     }
 
