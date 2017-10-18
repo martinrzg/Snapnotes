@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Snapnotes</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="web_client_id">H911951970080-46lnuoqdhs83a6eeubie28vq003mikkt.apps.googleusercontent.com</string>
 </resources>

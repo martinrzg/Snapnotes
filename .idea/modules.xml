@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Snapnotes.iml" filepath="$PROJECT_DIR$/Snapnotes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Snapnotes.iml" filepath="$PROJECT_DIR$/.idea/Snapnotes.iml" />
+      <module fileurl="file://C:\Users\INSPIRON\AndroidStudioProjects\Snapnotes\Snapnotes.iml" filepath="C:\Users\INSPIRON\AndroidStudioProjects\Snapnotes\Snapnotes.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
