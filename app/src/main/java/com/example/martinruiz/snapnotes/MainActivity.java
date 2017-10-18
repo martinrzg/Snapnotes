@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.ma_background_view) View backgroundView;
     @BindView(R.id.ma_view_pager) ViewPager viewPager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
