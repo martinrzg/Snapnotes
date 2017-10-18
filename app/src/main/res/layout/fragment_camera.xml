@@ -2,13 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.martinruiz.snapnotes.fragments.GalleryFragment"
-    >
+    tools:context="com.example.martinruiz.snapnotes.fragments.CameraFragment"
+    android:background="@color/light_purple">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Gallery Fragment" />
+        android:text="Camera Fragment" />
 
 </FrameLayout>

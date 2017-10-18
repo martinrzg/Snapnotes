@@ -12,21 +12,20 @@ import com.example.martinruiz.snapnotes.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GalleryFragment extends Fragment {
+public class CameraFragment extends Fragment {
 
-
-    public GalleryFragment() {
+    public CameraFragment() {
         // Required empty public constructor
     }
 
-    public static GalleryFragment create(){
-        return new GalleryFragment();
+    public static CameraFragment create(){
+        return new CameraFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_gallery, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_camera, container, false);
+        return view;
     }
 }
