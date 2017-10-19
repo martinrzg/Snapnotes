@@ -6,10 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import 	android.support.design.widget.Snackbar;
 
+import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -20,6 +22,7 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,6 +33,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.util.Random;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -37,9 +42,11 @@ import butterknife.OnClick;
 public class LogInActivity extends AppCompatActivity {
 
     //TODO: Update the view information to bind
-    @BindView(R.id.bLoging) Button bSignIn;
+    @BindView(R.id.sign_in_button)SignInButton bSignIn;
     @BindView(R.id.blLogout) Button bSignOut;
     @BindView(R.id.tvName) TextView tvName;
+    @BindView(R.id.login_button) LoginButton loginButton;
+    @BindView(R.id.ivBackground)ImageView background;
 
     private final int  RC_SIGN_IN = 201;
 
@@ -51,17 +58,23 @@ public class LogInActivity extends AppCompatActivity {
 
     private String TAG = LogInActivity.class.getSimpleName();
 
+    private int[] images = new int[]{R.drawable.office1,R.drawable.office2, R.drawable.team1};
+
+    Random random = new Random();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCallbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_log_in);
+        ButterKnife.bind(this);
+        background.setAlpha(0.7f);
+
+        int i = random.nextInt(images.length + 1);
+        Glide.with(this).load(images[i]).into(background);
 
         //Get the current intance of firebase
         mAuth = FirebaseAuth.getInstance();
-
-
-        LoginButton loginButton = findViewById(R.id.login_button);
         loginButton.setReadPermissions("email", "public_profile");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -78,13 +91,12 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onError(FacebookException error) {
                 Log.d(TAG, "facebook:onError", error);
-                // ...
             }
         });
 
-        ButterKnife.bind(this);
 
 
+        bSignIn.setSize(SignInButton.SIZE_WIDE);
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -105,7 +117,7 @@ public class LogInActivity extends AppCompatActivity {
 
     //Click listener for the sing in button
     //TODO: Update button info
-    @OnClick(R.id.bLoging)
+    @OnClick(R.id.sign_in_button)
     public void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
