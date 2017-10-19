@@ -18,4 +18,6 @@
     <color name="light_grey">#e0e0e0</color>
     <color name="dark_grey">#9e9e9e</color>
     <color name="card_background_color">@color/white</color>
+
+    <color name="background_filter">#6481d4fa</color>
 </resources>
