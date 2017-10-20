@@ -1,17 +1,16 @@
-package com.example.martinruiz.snapnotes;
+package com.example.martinruiz.snapnotes.activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 import 	android.support.design.widget.Snackbar;
 
 import com.bumptech.glide.Glide;
+import com.example.martinruiz.snapnotes.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -41,10 +40,8 @@ import butterknife.OnClick;
 
 public class LogInActivity extends AppCompatActivity {
 
-    //TODO: Update the view information to bind
+    
     @BindView(R.id.sign_in_button)SignInButton bSignIn;
-    @BindView(R.id.blLogout) Button bSignOut;
-    @BindView(R.id.tvName) TextView tvName;
     @BindView(R.id.login_button) LoginButton loginButton;
     @BindView(R.id.ivBackground)ImageView background;
 
@@ -116,17 +113,12 @@ public class LogInActivity extends AppCompatActivity {
 
 
     //Click listener for the sing in button
-    //TODO: Update button info
     @OnClick(R.id.sign_in_button)
     public void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-    @OnClick(R.id.blLogout)
-    public void signOut(){
-        mAuth.signOut();
-        tvName.setText("no user");
-    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -171,7 +163,7 @@ public class LogInActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-                            tvName.setText(user.getDisplayName());
+                            
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -213,9 +205,9 @@ public class LogInActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user){
         if(user != null) {
-            tvName.setText(user.getDisplayName());
+            Log.d(TAG,"User");
         }else {
-            tvName.setText("Error");
+            Log.d(TAG,"No user");
         }
     }
 
