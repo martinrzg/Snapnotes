@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Snapnotes</string>
+    <string name="facebook_app_id">748346208694237</string>
+    <string name="fb_login_protocol_scheme">fb748346208694237</string>
 
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="web_client_id">911951970080-46lnuoqdhs83a6eeubie28vq003mikkt.apps.googleusercontent.com</string>
+    <string name="sing_in_fail">Sing in fail</string>
 </resources>
