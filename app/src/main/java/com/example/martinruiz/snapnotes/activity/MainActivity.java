@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.example.martinruiz.snapnotes.R;
 import com.example.martinruiz.snapnotes.adapters.MainPageAdapter;
+import com.example.martinruiz.snapnotes.views.SnapTabs;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.view_background) View backgroundView;
     @BindView(R.id.ma_view_pager) ViewPager viewPager;
-
+    @BindView(R.id.snapTabs) SnapTabs snapTabs;
     private MainPageAdapter adapter;
 
     @Override
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new MainPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
+        snapTabs.setViewPager(viewPager);
+        viewPager.setCurrentItem(1);
 
         final int blue   = ContextCompat.getColor(this, R.color.light_blue);
         final int purple = ContextCompat.getColor(this, R.color.light_purple);
