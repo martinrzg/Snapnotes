@@ -5,10 +5,6 @@
     tools:context="com.example.martinruiz.snapnotes.fragments.CameraFragment"
     >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Camera Fragment" />
+
 
 </FrameLayout>
