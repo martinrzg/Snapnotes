@@ -1,5 +1,10 @@
 package com.example.martinruiz.snapnotes.DatabaseModel;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Erik on 20/10/2017.
  */
@@ -7,15 +12,60 @@ package com.example.martinruiz.snapnotes.DatabaseModel;
 public class Notes {
 
     public String url;
-    public String texto;
+    public String text;
     public String day;
+    public String id;
 
     public Notes() {
     }
 
-    public Notes(String url, String texto, String day) {
+    public Notes( String id, String url, String text, String day) {
         this.url = url;
-        this.texto = texto;
+        this.text = text;
         this.day = day;
+        this.id = id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+
+        result.put("id", id);
+        result.put("url", url);
+        result.put("text", text);
+        result.put("day", day);
+        return result;
     }
 }
