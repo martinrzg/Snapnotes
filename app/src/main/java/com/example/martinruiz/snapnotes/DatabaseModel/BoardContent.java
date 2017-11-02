@@ -11,18 +11,33 @@ import java.util.Map;
 
 public class BoardContent {
 
+
+
     public String id;
     public String name;
     public Map<String, Object> notes;
 
+
+
     public BoardContent() {
     }
 
+    /**
+     * Construct a BoardContent with name and HasMap of notes
+     * @param name Name of the Board
+     * @param notes HasMap of notes
+     */
     public BoardContent(String name, Map<String, Object> notes) {
         this.name = name;
         this.notes = notes;
     }
 
+    /**
+     * Construct a BoardContent with id, name and HasMap of notes
+     * @param id Id of the BoardContent
+     * @param name Name of the Board
+     * @param notes HasMap of notes
+     */
     public BoardContent( String id, String name, Map<String, Object> notes) {
         this.name = name;
         this.id = id;
@@ -52,6 +67,7 @@ public class BoardContent {
     public void setNotes(Map<String, Object> notes) {
         this.notes = notes;
     }
+
 
     @Exclude
     public Map<String, Object> toMap() {

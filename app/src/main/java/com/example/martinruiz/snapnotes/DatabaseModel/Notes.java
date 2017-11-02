@@ -23,10 +23,10 @@ public class Notes {
 
     /**
      *Constructor to a new not.
-     * @param id The id of the note
-     * @param url The url of the note
-     * @param text The url of the note
-     * @param day The url of the note
+     * @param id  Id of the note
+     * @param url  Url of the note
+     * @param text Text of the note
+     * @param day Day of the note
      */
     public Notes( String id, String url, String text, String day) {
         this.id = id;
@@ -38,9 +38,9 @@ public class Notes {
 
     /**
      *Constructor to a new note without id.
-     * @param url The url of the note
-     * @param text The url of the note
-     * @param day The url of the note
+     * @param url  Url of the note
+     * @param text Text of the note
+     * @param day Day of the note
      */
     public Notes( String url, String text, String day) {
         this.url = url;
