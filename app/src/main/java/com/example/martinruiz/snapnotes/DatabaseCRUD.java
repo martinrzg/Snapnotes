@@ -10,7 +10,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 import static android.content.ContentValues.TAG;
 
@@ -18,27 +20,31 @@ import static android.content.ContentValues.TAG;
  * Created by Erik on 20/10/2017.
  */
 
+
 public class DatabaseCRUD {
 
-    public static void writeNewNote(final DatabaseReference mDatabase, final Notes notes, final String boardId){
-        mDatabase.addListenerForSingleValueEvent(
+    private static final String BOARDS = "boards";
+    /**
+     *Add new note to the selected board.
+     * @param mDatabase Database reference to the user database, recommended use: mDatabase.child(mAuth.getUid().
+     * @param note Note object that is going to be add to the notes.
+     * @param boardId Id of the board where the note will be added.
+     */
+    public static void writeNewNote(final DatabaseReference mDatabase, final Notes note, final String boardId){
+        mDatabase.child("boards").child(boardId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        // Get board value
-                        Boards board = dataSnapshot.getValue(Boards.class);
+                        // Get BoardContent value
+                        BoardContent board = dataSnapshot.getValue(BoardContent.class);
 
-                        // [START_EXCLUDE]
                         if (board == null) {
-                            // Board is null, error out
-                            Log.e(TAG, "Boards is unexpectedly null");
+                            // Note is null, error out
+                            //If id is wrong could get this
+                            Log.e(TAG, "Note is unexpectedly null");
                         } else {
-                            // Write new Board
-//                            Map<String,Object> hash = board.getBoards();
-//                            Log.d(TAG, hash.containsKey("-Kxp8hyF_WhEP4mfELV9")+"");
-//                            BoardContent boardContent = (BoardContent) hash.get("-Kxp8hyF_WhEP4mfELV9");
-//                            boa
-//                            Log.d(TAG,boardContent.getName());
+                            //Send the data to add the note ot the database.
+                            newNote(mDatabase, note, boardId, board);
                         }
 
                     }
@@ -51,29 +57,57 @@ public class DatabaseCRUD {
                 });
     }
 
-    private static void newNote(DatabaseReference mDatabase, Map<String, Object> boardContent, Notes notes, String boardID) {
+    private static void newNote(DatabaseReference mDatabase, Notes note, String boardId, BoardContent boardContent) {
+        //Get the key for the new note
+        String key = mDatabase.child("boards").child(boardId).push().getKey();
+
+        if(boardContent.getNotes() == null){
+
+            note.setId(key);                                                      //Add the id to the note object.
+            Map<String, Object> notes = new HashMap();                            //If the notes is empty initialize the HashMap for the notes.
+            notes.put(key, note);                                                 //Add th new note to the HashMap
+            boardContent.setNotes(notes);                                         //Add the notes HashMap to the boardContent
+            mDatabase.child("boards").child(boardId).setValue(boardContent);      //Update the data of the database
+        }else{
+            note.setId(key);                                                      //Add the id to the note object.
+            boardContent.getNotes().put(key, note);                               //Add th new note to the HashMap
+            mDatabase.child(BOARDS).child(boardId).setValue(boardContent);      //Update the data of the database
+        }
 
 
     }
 
+    /**
+     * Method to add new Board to the user board.
+     * @param mDatabase Database reference to the user database, recommended use: mDatabase.child(mAuth.getUid().
+     * @param boardContent Object BoardContent that is going to be add to the database.
+     */
     public static void writeNewBoard(final DatabaseReference mDatabase, final BoardContent boardContent) {
+
 
         mDatabase.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get board value
-                        Boards board = dataSnapshot.getValue(Boards.class);
+                        if (dataSnapshot.hasChild(BOARDS)) {
 
-                        // [START_EXCLUDE]
-                        if (board == null) {
-                            // Board is null, error out
-                            Log.e(TAG, "Boards is unexpectedly null");
+                            Boards board = dataSnapshot.getValue(Boards.class);
+
+                            // [START_EXCLUDE]
+                            if (board == null) {
+
+                                // Board is null, error out
+                                Log.e(TAG, "Boards is unexpectedly null");
+                            } else {
+                                // Write new Board
+                                newBoard(mDatabase, board.getBoards(), boardContent);
+                            }
                         } else {
-                            // Write new Board
-                            newBoard(mDatabase, board.getBoards(), boardContent);
+                            //Initialize boards if is empty
+                            Map<String, Object> map = new HashMap<>();
+                            newBoard(mDatabase, map, boardContent);
                         }
-
                     }
 
                     @Override
@@ -89,12 +123,12 @@ public class DatabaseCRUD {
 
     private static void newBoard(DatabaseReference mDatabase, Map<String, Object> boards, BoardContent boardContent) {
         //Generate key and add it to the boards
-        String key = mDatabase.child("boards").push().getKey();
+        String key = mDatabase.child(BOARDS).push().getKey();
         boardContent.setId(key);
 
         //Insert the new board to the boards HashMap
         boards.put(key, boardContent);
 
-        mDatabase.child("boards").setValue(boards);
+        mDatabase.child(BOARDS).setValue(boards);
     }
 }
