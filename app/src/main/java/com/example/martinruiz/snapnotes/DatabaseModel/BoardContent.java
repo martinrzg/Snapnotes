@@ -23,7 +23,7 @@ public class BoardContent {
         this.notes = notes;
     }
 
-    public BoardContent(String name, String id, Map<String, Object> notes) {
+    public BoardContent( String id, String name, Map<String, Object> notes) {
         this.name = name;
         this.id = id;
         this.notes = notes;

@@ -9,21 +9,43 @@ import java.util.Map;
  * Created by Erik on 20/10/2017.
  */
 
+
 public class Notes {
 
+    public String id;
     public String url;
     public String text;
     public String day;
-    public String id;
+
 
     public Notes() {
     }
 
+    /**
+     *Constructor to a new not.
+     * @param id The id of the note
+     * @param url The url of the note
+     * @param text The url of the note
+     * @param day The url of the note
+     */
     public Notes( String id, String url, String text, String day) {
+        this.id = id;
         this.url = url;
         this.text = text;
         this.day = day;
-        this.id = id;
+
+    }
+
+    /**
+     *Constructor to a new note without id.
+     * @param url The url of the note
+     * @param text The url of the note
+     * @param day The url of the note
+     */
+    public Notes( String url, String text, String day) {
+        this.url = url;
+        this.text = text;
+        this.day = day;
     }
 
     public String getUrl() {
