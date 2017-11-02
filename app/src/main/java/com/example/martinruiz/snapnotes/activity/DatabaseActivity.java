@@ -37,15 +37,8 @@ public class DatabaseActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("key", new BoardContent("ds",new HashMap<String, Object>()));
-//        Boards boards = new Boards(map);
-//
-//        mDatabase.child(mAuth.getUid()).child("boards").setValue(boards);
-
-          DatabaseCRUD.writeNewNote(mDatabase.child(mAuth.getUid()),new Notes("ff","ff","ff","ff"), "v");
-//        DatabaseCRUD.writeNewBoard(mDatabase.child(mAuth.getUid()),new BoardContent("Graficas", new HashMap<String, Object>()));
+        DatabaseCRUD.writeNewNote(mDatabase.child(mAuth.getUid()),new Notes("sdf","fd","34"), "-Kxu9MsTs8L5u9Clf-va");
+        //DatabaseCRUD.writeNewBoard(mDatabase.child(mAuth.getUid()),new BoardContent("Base de datos", new HashMap<String, Object>()));
 
 
     }
