@@ -4,6 +4,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.TextureView;
 import android.view.View;
 
 import com.example.martinruiz.snapnotes.R;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.view_background) View backgroundView;
     @BindView(R.id.ma_view_pager) ViewPager viewPager;
     @BindView(R.id.snapTabs) SnapTabs snapTabs;
+    private TextureView textureView;
     private MainPageAdapter adapter;
 
     @Override
@@ -31,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         snapTabs.setViewPager(viewPager);
         viewPager.setCurrentItem(1);
 
+        assert  textureView != null;
+        //textureView = findViewById(R.id.textureView);
+
         final int blue   = ContextCompat.getColor(this, R.color.light_blue);
         final int purple = ContextCompat.getColor(this, R.color.light_purple);
 
@@ -40,25 +45,24 @@ public class MainActivity extends AppCompatActivity {
                 if(position == 0){
                     backgroundView.setBackgroundColor(blue);
                     backgroundView.setAlpha(1-positionOffset);
+
+                    //textureView.setBackgroundColor(blue);
+                    //textureView.setAlpha(1-positionOffset);
                 }
                 else if(position == 1){
                     backgroundView.setBackgroundColor(purple);
                     backgroundView.setAlpha(positionOffset);
+
+                    //textureView.setBackgroundColor(purple);
+                    //textureView.setAlpha(positionOffset);
                 }
             }
-
             @Override
             public void onPageSelected(int position) {
-
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
-
-
     }
-
 }
