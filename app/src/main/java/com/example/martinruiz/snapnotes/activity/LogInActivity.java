@@ -162,7 +162,9 @@ public class LogInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            Intent intent = new Intent(getApplicationContext() ,MainActivity.class);
+                            intent.putExtra("uid",user.getUid());
+                            startActivity(intent);
                             
                         } else {
                             // If sign in fails, display a message to the user.
@@ -189,7 +191,9 @@ public class LogInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            Intent intent = new Intent(getApplicationContext() ,MainActivity.class);
+                            intent.putExtra("uid",user.getUid());
+                            startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -198,7 +202,6 @@ public class LogInActivity extends AppCompatActivity {
                             updateUI(null);
                         }
 
-                        // ...
                     }
                 });
     }
