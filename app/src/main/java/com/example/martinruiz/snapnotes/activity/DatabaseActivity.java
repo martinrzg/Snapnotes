@@ -9,6 +9,7 @@ import com.example.martinruiz.snapnotes.DatabaseCRUD;
 import com.example.martinruiz.snapnotes.DatabaseModel.BoardContent;
 import com.example.martinruiz.snapnotes.DatabaseModel.Boards;
 import com.example.martinruiz.snapnotes.DatabaseModel.Notes;
+import com.example.martinruiz.snapnotes.DatabaseModel.UserCalendar;
 import com.example.martinruiz.snapnotes.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -39,9 +40,9 @@ public class DatabaseActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        DatabaseCRUD.writeNewNote(mDatabase.child(mAuth.getUid()),new Notes("wwww","ffasdfwverfd","34fsaf"), "-Kxu9MsTs8L5u9Clf-va");
+        //DatabaseCRUD.writeNewNote(mDatabase.child(mAuth.getUid()),new Notes("wwww","ffasdfwverfd","34fsaf"), "-KyR-0-G7vK07g17cdLM");
         //DatabaseCRUD.writeNewBoard(mDatabase.child(mAuth.getUid()),new BoardContent("Base de datos", new HashMap<String, Object>()));
-
+        //DatabaseCRUD.writeNewCalendar(mDatabase.child(mAuth.getUid()), new UserCalendar("Seguridad", "jueves","11:30","1:00"));
 
     }
 
