@@ -11,16 +11,15 @@ public class Boards implements Serializable{
 
 
     public Map<String, Object> boards;
-    public Map<String, UserCalendar> calendar;
+    public Map<String, Days> calendar;
 
     public Boards() {
 
     }
 
-
-    public Boards(Map<String, Object> boards, Map<String, UserCalendar> calendar) {
+    public Boards(Map<String, Object> boards, Map<String, Days> days) {
         this.boards = boards;
-        this.calendar = calendar;
+        this.calendar = days;
     }
 
     public Boards(Map<String, Object> boards) {
@@ -35,11 +34,11 @@ public class Boards implements Serializable{
         this.boards = boards;
     }
 
-    public Map<String, UserCalendar> getCalendar() {
+    public Map<String, Days> getCalendars() {
         return calendar;
     }
 
-    public void setCalendar(Map<String, UserCalendar> calendar) {
-        this.calendar = calendar;
+    public void setCalendars(Map<String, Days> calendars) {
+        this.calendar = calendars;
     }
 }

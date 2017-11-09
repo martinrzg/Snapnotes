@@ -4,16 +4,17 @@ import android.util.Log;
 
 import com.example.martinruiz.snapnotes.DatabaseModel.Boards;
 import com.example.martinruiz.snapnotes.DatabaseModel.BoardContent;
+import com.example.martinruiz.snapnotes.DatabaseModel.Days;
 import com.example.martinruiz.snapnotes.DatabaseModel.Notes;
-import com.example.martinruiz.snapnotes.DatabaseModel.UserCalendar;
+import com.example.martinruiz.snapnotes.DatabaseModel.Courses;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.PriorityQueue;
 
 import static android.content.ContentValues.TAG;
 
@@ -26,6 +27,7 @@ public class DatabaseCRUD {
 
     private static final String BOARDS = "boards";
     private static final String CALENDAR = "calendar";
+    private static final String COURSES = "courses";
 
     /**
      * Add new note to the selected board.
@@ -140,9 +142,9 @@ public class DatabaseCRUD {
      * Method to add new Board to the user board.
      *
      * @param mDatabase    Database reference to the user database, recommended use: mDatabase.child(mAuth.getUid().
-     * @param userCalendar Object USerCalendar that is going to be add to the database.
+     * @param courses Object USerCalendar that is going to be add to the database.
      */
-    public static void writeNewCalendar(final DatabaseReference mDatabase, final UserCalendar userCalendar) {
+    public static void writeNewCalendar(final DatabaseReference mDatabase, final Courses courses) {
 
 
         mDatabase.addListenerForSingleValueEvent(
@@ -160,16 +162,25 @@ public class DatabaseCRUD {
                                 // Board is null, error out
                                 Log.e(TAG, "Boards is unexpectedly null");
                             } else {
+
                                 // Write new Board
-                                Log.d(TAG,"holi2");
-                                newCalendar(mDatabase, board.getCalendar(), userCalendar);
+                                newCalendar(mDatabase,board.getCalendars(), courses);
 
                             }
                         } else {
                             //Initialize boards if is empty
-                            Log.d(TAG,"holi");
-                            Map<String, UserCalendar> map = new HashMap<>();
-                            newCalendar(mDatabase, map, userCalendar);
+
+                            Map<String, Days> map = new HashMap<>();
+                            map.put("Mon", new Days());
+                            map.put("Tue", new Days());
+                            map.put("Wed", new Days());
+                            map.put("Thu", new Days());
+                            map.put("Fri", new Days());
+                            map.put("Sat", new Days());
+                            map.put("Sun", new Days());
+
+                            mDatabase.child(CALENDAR).setValue(map);
+                            newCalendar(mDatabase,map, courses);
 
                         }
                     }
@@ -184,12 +195,50 @@ public class DatabaseCRUD {
 
     }
 
-    private static void newCalendar(DatabaseReference mDatabase, Map<String, UserCalendar> calendars, UserCalendar userCalendar) {
+    private static void newCalendar(DatabaseReference mDatabase,Map<String, Days> days, Courses course) {
 
 
-        //Insert the new board to the boards HashMap
-        calendars.put(userCalendar.getName(), userCalendar);
+        mDatabase.child(CALENDAR).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get board value
 
-        mDatabase.child(CALENDAR).setValue(calendars);
+
+                        if(dataSnapshot.child(course.getDay()).hasChild(COURSES)) {
+                            Days courses = dataSnapshot.child(course.getDay()).getValue(Days.class);
+
+                            // [START_EXCLUDE]
+                            if (days == null) {
+
+                                // Board is null, error out
+                                Log.e(TAG, "Boards is unexpectedly null");
+                            } else {
+
+                                // Write new Board
+                                newCourse(mDatabase,days, courses.getCourses(), course);
+
+                            }
+                        }else {
+                            Map<String, Courses> map = new HashMap<>();
+                            newCourse(mDatabase,days, map, course);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(TAG, "getPost:onCancelled", databaseError.toException());
+
+                    }
+                });
+
+    }
+
+    private static void newCourse(DatabaseReference mDatabase, Map<String,Days> days, Map<String, Courses> coursesMap, Courses course) {
+        coursesMap.put(course.getName(), course);
+        Days courses = new Days(coursesMap);
+        days.put(course.getDay(),courses);
+        mDatabase.child(CALENDAR).child(course.getDay()).setValue(courses);
     }
 }

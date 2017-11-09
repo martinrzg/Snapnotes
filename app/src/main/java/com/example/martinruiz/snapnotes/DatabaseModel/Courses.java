@@ -4,17 +4,17 @@ package com.example.martinruiz.snapnotes.DatabaseModel;
  * Created by Erik on 07/11/2017.
  */
 
-public class UserCalendar {
+public class Courses {
 
     private String name;
     private String day;
     private String start;
     private String end;
 
-    public UserCalendar() {
+    public Courses() {
     }
 
-    public UserCalendar(String name, String day, String start, String end) {
+    public Courses(String name, String day, String start, String end) {
         this.name = name;
         this.day = day;
         this.start = start;
