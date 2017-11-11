@@ -97,9 +97,10 @@ public class DatabaseCRUD {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get board value
-                        if (dataSnapshot.hasChild(BOARDS)) {
+                        Boards board = dataSnapshot.getValue(Boards.class);
 
-                            Boards board = dataSnapshot.getValue(Boards.class);
+                        if(board != null && board.getBoards() != null  ) {
+                            Log.d("no Null", "no null");
 
                             // [START_EXCLUDE]
                             if (board == null) {
@@ -108,13 +109,17 @@ public class DatabaseCRUD {
                                 Log.e(TAG, "Boards is unexpectedly null");
                             } else {
                                 // Write new Board
-                                newBoard(mDatabase, board.getBoards(), boardContent);
+                                if(!dataSnapshot.child(BOARDS).hasChild(boardContent.getName())){
+                                    newBoard(mDatabase, board.getBoards(), boardContent);
+                                }
                             }
-                        } else {
+                        }else {
                             //Initialize boards if is empty
-                            Map<String, Object> map = new HashMap<>();
+                            Log.d("Null", "null");
+                            Map<String, BoardContent> map = new HashMap<>();
                             newBoard(mDatabase, map, boardContent);
                         }
+
                     }
 
                     @Override
@@ -127,19 +132,19 @@ public class DatabaseCRUD {
 
     }
 
-    private static void newBoard(DatabaseReference mDatabase, Map<String, Object> boards, BoardContent boardContent) {
+    private static void newBoard(DatabaseReference mDatabase, Map<String, BoardContent> boards, BoardContent boardContent) {
         //Generate key and add it to the boards
-        String key = mDatabase.child(BOARDS).push().getKey();
-        boardContent.setId(key);
+       /* String key = mDatabase.child(BOARDS).push().getKey();
+        boardContent.setId(key);*/
 
         //Insert the new board to the boards HashMap
-        boards.put(key, boardContent);
+        boards.put(boardContent.getName(), boardContent);
 
-        mDatabase.child(BOARDS).setValue(boards);
+        mDatabase.child(BOARDS).child(boardContent.getName()).setValue(boardContent);
     }
 
     /**
-     * Method to add new Board to the user board.
+     * Method to add new Calendar to the user board.
      *
      * @param mDatabase    Database reference to the user database, recommended use: mDatabase.child(mAuth.getUid().
      * @param courses Object USerCalendar that is going to be add to the database.
@@ -164,20 +169,14 @@ public class DatabaseCRUD {
                             } else {
 
                                 // Write new Board
-                                newCalendar(mDatabase,board.getCalendars(), courses);
+                                newCalendar(mDatabase,board.getCalendar(), courses);
 
                             }
                         } else {
                             //Initialize boards if is empty
 
                             Map<String, Days> map = new HashMap<>();
-                            map.put("Mon", new Days());
-                            map.put("Tue", new Days());
-                            map.put("Wed", new Days());
-                            map.put("Thu", new Days());
-                            map.put("Fri", new Days());
-                            map.put("Sat", new Days());
-                            map.put("Sun", new Days());
+
 
                             mDatabase.child(CALENDAR).setValue(map);
                             newCalendar(mDatabase,map, courses);

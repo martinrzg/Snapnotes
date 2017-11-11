@@ -1,5 +1,8 @@
 package com.example.martinruiz.snapnotes.activity;
 
+        import com.example.martinruiz.snapnotes.DatabaseCRUD;
+        import com.example.martinruiz.snapnotes.DatabaseModel.BoardContent;
+        import com.example.martinruiz.snapnotes.DatabaseModel.Courses;
         import com.example.martinruiz.snapnotes.R;
         import com.google.android.gms.common.ConnectionResult;
         import com.google.android.gms.common.GoogleApiAvailability;
@@ -17,6 +20,10 @@ package com.example.martinruiz.snapnotes.activity;
         import com.google.api.client.util.DateTime;
 
         import com.google.api.services.calendar.model.*;
+        import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.auth.FirebaseUser;
+        import com.google.firebase.database.DatabaseReference;
+        import com.google.firebase.database.FirebaseDatabase;
 
         import android.Manifest;
         import android.accounts.AccountManager;
@@ -37,6 +44,7 @@ package com.example.martinruiz.snapnotes.activity;
         import android.support.v7.app.AlertDialog;
         import android.text.TextUtils;
         import android.text.method.ScrollingMovementMethod;
+        import android.util.Log;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.ArrayAdapter;
@@ -46,8 +54,11 @@ package com.example.martinruiz.snapnotes.activity;
         import android.widget.Toast;
 
         import java.io.IOException;
+        import java.text.SimpleDateFormat;
         import java.util.ArrayList;
         import java.util.Arrays;
+        import java.util.Date;
+        import java.util.HashMap;
         import java.util.List;
 
         import butterknife.BindView;
@@ -59,11 +70,12 @@ package com.example.martinruiz.snapnotes.activity;
 public class CalendarActivity extends Activity
         implements EasyPermissions.PermissionCallbacks {
     GoogleAccountCredential mCredential;
-    private TextView mOutputText;
-    private Button mCallApiButton;
     ProgressDialog mProgress;
 
     private List<CalendarModel> calendarList;
+    private static final String TAG = DatabaseActivity.class.getSimpleName();
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
 
     static final int REQUEST_ACCOUNT_PICKER = 1000;
     static final int REQUEST_AUTHORIZATION = 1001;
@@ -86,6 +98,12 @@ public class CalendarActivity extends Activity
        setContentView(R.layout.activity_calendar);
        ButterKnife.bind(this);
 
+        mAuth = FirebaseAuth.getInstance();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mProgress = new ProgressDialog(this);
+        mProgress.setMessage("Calling Google Calendar API ...");
 
 
         // Initialize credentials and service object.
@@ -100,7 +118,7 @@ public class CalendarActivity extends Activity
     }
 
 
-    public void showDialog(ArrayList<CalendarModel> calendarModels) {
+    public void showDialog(List<CalendarModel> calendarModels) {
 
         ArrayList<String> names = new ArrayList<>();
         for (CalendarModel cal: calendarModels) {
@@ -108,15 +126,16 @@ public class CalendarActivity extends Activity
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,names);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Pick one");
+        builder.setTitle("Select the calendar:");
         builder.setSingleChoiceItems(adapter, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 getEventsFromApi(calendarModels.get(which));
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
-
-
         builder.show();
     }
     /**
@@ -132,7 +151,7 @@ public class CalendarActivity extends Activity
         } else if (mCredential.getSelectedAccountName() == null) {
             chooseAccount();
         } else if (! isDeviceOnline()) {
-            mOutputText.setText("No network connection available.");
+            Toast.makeText(getApplicationContext(),"No network connection available.", Toast.LENGTH_LONG).show();
         } else {
             new MakeRequestCalendars(mCredential).execute();
         }
@@ -143,7 +162,7 @@ public class CalendarActivity extends Activity
         } else if (mCredential.getSelectedAccountName() == null) {
             chooseAccount();
         } else if (! isDeviceOnline()) {
-            mOutputText.setText("No network connection available.");
+            Toast.makeText(getApplicationContext(),"No network connection available.", Toast.LENGTH_LONG).show();
         } else {
             new MakeRequestTask(mCredential, calendarModel).execute();
         }
@@ -201,9 +220,7 @@ public class CalendarActivity extends Activity
         switch(requestCode) {
             case REQUEST_GOOGLE_PLAY_SERVICES:
                 if (resultCode != RESULT_OK) {
-                    mOutputText.setText(
-                            "This app requires Google Play Services. Please install " +
-                                    "Google Play Services on your device and relaunch this app.");
+                    Toast.makeText(getApplicationContext(), "This app requires Google Play Services. Please install", Toast.LENGTH_LONG).show();
                 } else {
                     getCalendarsFromApi();
                 }
@@ -338,7 +355,8 @@ public class CalendarActivity extends Activity
         private String id;
 
         MakeRequestTask(GoogleAccountCredential credential, CalendarModel calendarModel) {
-            id =calendarModel.getId();
+            id = calendarModel.getId();
+            Log.d(TAG,"id: "+id);
             HttpTransport transport = AndroidHttp.newCompatibleTransport();
             JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
             mService = new com.google.api.services.calendar.Calendar.Builder(
@@ -381,15 +399,23 @@ public class CalendarActivity extends Activity
             List<Event> items = events.getItems();
 
             for (Event event : items) {
-                DateTime start = event.getStart().getDateTime();
+                Date start = new Date(event.getStart().getDateTime().getValue());
+                Date end = new Date(event.getEnd().getDateTime().getValue());
+
                 if (start == null) {
                     // All-day events don't have start times, so just use
                     // the start date.
 
-                    start = event.getStart().getDate();
+                    start = new Date(event.getStart().getDate().getValue());
                 }
-                eventStrings.add(
-                        String.format("%s (%s)", event.getSummary(), start+"--"+event.getEnd().getDateTime()));
+
+                SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+                SimpleDateFormat day = new SimpleDateFormat("E");
+
+                DatabaseCRUD.writeNewCalendar(mDatabase.child(mAuth.getUid()), new Courses(event.getSummary(), day.format(start), format.format(start), format.format(end)));
+                DatabaseCRUD.writeNewBoard(mDatabase.child(mAuth.getUid()),new BoardContent(event.getSummary()));
+//                eventStrings.add(
+//                        String.format("%s (%s)", event.getSummary(), format.format(start)+" a "+format.format(end)+" el "+day.format(start)));
             }
             return eventStrings;
         }
@@ -399,7 +425,6 @@ public class CalendarActivity extends Activity
 
         @Override
         protected void onPreExecute() {
-            mOutputText.setText("");
             mProgress.show();
         }
 
@@ -407,10 +432,9 @@ public class CalendarActivity extends Activity
         protected void onPostExecute(List<String> output) {
             mProgress.hide();
             if (output == null || output.size() == 0) {
-                mOutputText.setText("No results returned.");
+                Toast.makeText(getApplicationContext(),"No results returned.",Toast.LENGTH_LONG).show();
             } else {
-                output.add(0, "Data retrieved using the Google Calendar API:");
-                mOutputText.setText(TextUtils.join("\n", output));
+                Log.d(TAG,TextUtils.join("\n", output));
             }
         }
 
@@ -427,11 +451,12 @@ public class CalendarActivity extends Activity
                             ((UserRecoverableAuthIOException) mLastError).getIntent(),
                             CalendarActivity.REQUEST_AUTHORIZATION);
                 } else {
-                    mOutputText.setText("The following error occurred:\n"
+                    Toast.makeText(getApplicationContext(),"An error occurred",Toast.LENGTH_LONG).show();
+                    Log.e(TAG,"The following error occurred:"
                             + mLastError.getMessage());
                 }
             } else {
-                mOutputText.setText("Request cancelled.");
+                Toast.makeText(getApplicationContext(),"Request cancelled.",Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -493,7 +518,6 @@ public class CalendarActivity extends Activity
 
         @Override
         protected void onPreExecute() {
-            mOutputText.setText("");
             mProgress.show();
         }
 
@@ -504,6 +528,7 @@ public class CalendarActivity extends Activity
                 Toast.makeText(getBaseContext(),"No se encontraron datos", Toast.LENGTH_LONG).show();
             } else {
                 calendarList = output;
+                showDialog(output);
             }
         }
 
@@ -520,12 +545,24 @@ public class CalendarActivity extends Activity
                             ((UserRecoverableAuthIOException) mLastError).getIntent(),
                             CalendarActivity.REQUEST_AUTHORIZATION);
                 } else {
-                    mOutputText.setText("The following error occurred:\n"
+                    Toast.makeText(getApplicationContext(),"An error occurred",Toast.LENGTH_LONG).show();
+                    Log.e(TAG,"The following error occurred:"
                             + mLastError.getMessage());
                 }
             } else {
-                mOutputText.setText("Request cancelled.");
+                Toast.makeText(getApplicationContext(),"Request cancelled.",Toast.LENGTH_LONG).show();
             }
+        }
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Intent intent = new Intent(this,LogInActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 }

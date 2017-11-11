@@ -13,7 +13,6 @@ public class BoardContent {
 
 
 
-    public String id;
     public String name;
     public Map<String, Object> notes;
 
@@ -22,25 +21,20 @@ public class BoardContent {
     public BoardContent() {
     }
 
-    /**
-     * Construct a BoardContent with name and HasMap of notes
-     * @param name Name of the Board
-     * @param notes HasMap of notes
-     */
-    public BoardContent(String name, Map<String, Object> notes) {
+
+
+
+    public BoardContent(String name) {
         this.name = name;
-        this.notes = notes;
     }
 
     /**
      * Construct a BoardContent with id, name and HasMap of notes
-     * @param id Id of the BoardContent
      * @param name Name of the Board
      * @param notes HasMap of notes
      */
-    public BoardContent( String id, String name, Map<String, Object> notes) {
+    public BoardContent( String name, Map<String, Object> notes) {
         this.name = name;
-        this.id = id;
         this.notes = notes;
     }
 
@@ -52,13 +46,7 @@ public class BoardContent {
         this.name = name;
     }
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public Map<String, Object> getNotes() {
         return notes;
@@ -72,7 +60,6 @@ public class BoardContent {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("id", id);
         result.put("name", name);
         result.put("notes", notes);
 
