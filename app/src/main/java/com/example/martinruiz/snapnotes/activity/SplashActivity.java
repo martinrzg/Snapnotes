@@ -14,16 +14,15 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //TODO: Comment to start the activity you want for debug.
-//        mAuth = FirebaseAuth.getInstance();
-//        if(mAuth.getCurrentUser() == null){
-//            Intent intent = new Intent(this, LogInActivity.class);
-//            startActivity(intent);
-//        }else{
-//            Intent intent = new Intent(this, MainActivity.class);
-//            startActivity(intent);
-//        }
-        Intent intent = new Intent(this, DatabaseActivity.class);
-        startActivity(intent);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth.getInstance().signOut();
+        if(mAuth.getCurrentUser() == null){
+            Intent intent = new Intent(this, LogInActivity.class);
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
         finish();
     }
 }

@@ -115,6 +115,7 @@ public class CalendarActivity extends Activity
     @OnClick(R.id.bCalendarSync)
     public void getCalendar(){
         getCalendarsFromApi();
+
     }
 
 
@@ -133,6 +134,7 @@ public class CalendarActivity extends Activity
                 getEventsFromApi(calendarModels.get(which));
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
+                dialog.dismiss();
                 finish();
             }
         });
@@ -414,8 +416,8 @@ public class CalendarActivity extends Activity
 
                 DatabaseCRUD.writeNewCalendar(mDatabase.child(mAuth.getUid()), new Courses(event.getSummary(), day.format(start), format.format(start), format.format(end)));
                 DatabaseCRUD.writeNewBoard(mDatabase.child(mAuth.getUid()),new BoardContent(event.getSummary()));
-//                eventStrings.add(
-//                        String.format("%s (%s)", event.getSummary(), format.format(start)+" a "+format.format(end)+" el "+day.format(start)));
+                eventStrings.add(
+                        String.format("%s (%s)", event.getSummary(), format.format(start)+" a "+format.format(end)+" el "+day.format(start)));
             }
             return eventStrings;
         }
@@ -559,8 +561,12 @@ public class CalendarActivity extends Activity
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser == null){
-            Intent intent = new Intent(this,LogInActivity.class);
+
+        if(currentUser != null){
+
+
+        }else{
+            Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
             startActivity(intent);
             finish();
         }

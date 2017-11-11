@@ -100,7 +100,6 @@ public class DatabaseCRUD {
                         Boards board = dataSnapshot.getValue(Boards.class);
 
                         if(board != null && board.getBoards() != null  ) {
-                            Log.d("no Null", "no null");
 
                             // [START_EXCLUDE]
                             if (board == null) {
@@ -115,7 +114,6 @@ public class DatabaseCRUD {
                             }
                         }else {
                             //Initialize boards if is empty
-                            Log.d("Null", "null");
                             Map<String, BoardContent> map = new HashMap<>();
                             newBoard(mDatabase, map, boardContent);
                         }
