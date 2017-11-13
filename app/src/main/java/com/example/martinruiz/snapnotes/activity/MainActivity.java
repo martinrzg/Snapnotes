@@ -1,5 +1,6 @@
 package com.example.martinruiz.snapnotes.activity;
 
+import android.content.Intent;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import com.example.martinruiz.snapnotes.R;
 import com.example.martinruiz.snapnotes.adapters.MainPageAdapter;
 import com.example.martinruiz.snapnotes.views.SnapTabs;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -95,4 +98,20 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(currentUser != null){
+
+
+        }else{
+            Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
 }

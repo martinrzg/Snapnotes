@@ -67,7 +67,7 @@ public class LogInActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         background.setAlpha(0.7f);
 
-        int i = random.nextInt(images.length + 1);
+        int i = random.nextInt(images.length );
         Glide.with(this).load(images[i]).into(background);
 
         //Get the current intance of firebase
@@ -147,7 +147,6 @@ public class LogInActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        updateUI(currentUser);
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
@@ -165,6 +164,7 @@ public class LogInActivity extends AppCompatActivity {
                             Intent intent = new Intent(getApplicationContext() ,MainActivity.class);
                             intent.putExtra("uid",user.getUid());
                             startActivity(intent);
+                            finish();
                             
                         } else {
                             // If sign in fails, display a message to the user.
@@ -191,9 +191,10 @@ public class LogInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(getApplicationContext() ,MainActivity.class);
+                            Intent intent = new Intent(getApplicationContext() ,CalendarActivity.class);
                             intent.putExtra("uid",user.getUid());
                             startActivity(intent);
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
