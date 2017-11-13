@@ -25,9 +25,9 @@ import static android.content.ContentValues.TAG;
 
 public class DatabaseCRUD {
 
-    private static final String BOARDS = "boards";
-    private static final String CALENDAR = "calendar";
-    private static final String COURSES = "courses";
+    public static final String BOARDS = "boards";
+    public static final String CALENDAR = "calendar";
+    public static final String COURSES = "courses";
 
     /**
      * Add new note to the selected board.

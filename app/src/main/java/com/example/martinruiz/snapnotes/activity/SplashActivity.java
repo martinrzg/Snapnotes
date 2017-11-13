@@ -15,9 +15,9 @@ public class SplashActivity extends AppCompatActivity {
 
         //TODO: Comment to start the activity you want for debug.
         mAuth = FirebaseAuth.getInstance();
-        FirebaseAuth.getInstance().signOut();
+        //FirebaseAuth.getInstance().signOut();
         if(mAuth.getCurrentUser() == null){
-            Intent intent = new Intent(this, LogInActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }else{
             Intent intent = new Intent(this, MainActivity.class);
