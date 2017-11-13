@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.example.martinruiz.snapnotes.fragments.GalleryFragment;
 import com.example.martinruiz.snapnotes.fragments.ProfileFragment;
 import com.example.martinruiz.snapnotes.fragments.SimpleCameraFragment;
-import com.example.martinruiz.snapnotes.fragments.SimpleCameraFragment2;
 
 /**
  * Created by MartinRuiz on 10/17/2017.
@@ -31,7 +30,6 @@ public class MainPageAdapter extends FragmentPagerAdapter {
                 //return cameraFragment;
                 return SimpleCameraFragment.create();
 
-            //return SimpleCameraFragment2.create();
                 //return CustomCameraFragment.create();
             case 2:
                 return ProfileFragment.create();
