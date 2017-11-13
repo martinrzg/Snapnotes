@@ -56,14 +56,13 @@ public class MainActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if(position == 0){
+                if (position == 0) {
                     backgroundView.setBackgroundColor(blue);
-                    backgroundView.setAlpha(1-positionOffset);
+                    backgroundView.setAlpha(1 - positionOffset);
 
                     //textureView.setBackgroundColor(blue);
                     //textureView.setAlpha(1-positionOffset);
-                }
-                else if(position == 1){
+                } else if (position == 1) {
                     backgroundView.setBackgroundColor(purple);
                     backgroundView.setAlpha(positionOffset);
 
@@ -71,9 +70,11 @@ public class MainActivity extends AppCompatActivity {
                     //textureView.setAlpha(positionOffset);
                 }
             }
+
             @Override
             public void onPageSelected(int position) {
             }
+
             @Override
             public void onPageScrollStateChanged(int state) {
             }
@@ -87,17 +88,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
                 // close the app
-                Toast.makeText(this , "Sorry!!!, you can't use this app without granting permission", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Sorry!!!, you can't use this app without granting permission", Toast.LENGTH_LONG).show();
                 //finish();
             }
         }
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -105,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if(currentUser != null){
-
 
         }else{
             Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
