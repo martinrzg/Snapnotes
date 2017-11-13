@@ -3,12 +3,19 @@
     android:id="@+id/camera_preview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.martinruiz.snapnotes.fragments.CameraFragment">
+    tools:context="com.example.martinruiz.snapnotes.fragments.CustomCameraFragment">
 
-    <TextureView
+
+    <com.example.martinruiz.snapnotes.views.AutoFitTextureView
         android:id="@+id/textureView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
+    
+    <!--
+    <TextureView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    -->
 
 </FrameLayout>
