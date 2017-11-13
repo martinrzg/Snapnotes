@@ -1,11 +1,16 @@
 package com.example.martinruiz.snapnotes.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.TextureView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.martinruiz.snapnotes.R;
 import com.example.martinruiz.snapnotes.adapters.MainPageAdapter;
@@ -15,6 +20,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final int REQUEST_CAMERA_PERMISSION = 200;
 
     @BindView(R.id.view_background) View backgroundView;
     @BindView(R.id.ma_view_pager) ViewPager viewPager;
@@ -31,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
         adapter = new MainPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         snapTabs.setViewPager(viewPager);
+
+        checkPermission();
+
+
         viewPager.setCurrentItem(1);
 
         assert  textureView != null;
@@ -64,5 +75,24 @@ public class MainActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
+    }
+
+    private void checkPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CAMERA_PERMISSION);
+        }
+    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                // close the app
+                Toast.makeText(this , "Sorry!!!, you can't use this app without granting permission", Toast.LENGTH_LONG).show();
+                //finish();
+            }
+        }
     }
 }
