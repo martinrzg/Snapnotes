@@ -38,7 +38,6 @@ import android.widget.Toast;
 import com.example.martinruiz.snapnotes.R;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -53,8 +52,8 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CameraFragment extends Fragment {
-    private static final String TAG = "CameraFragment";
+public class CustomCameraFragment extends Fragment {
+    private static final String TAG = "CustomCameraFragment";
 
     @BindView(R.id.textureView) TextureView textureView;
     private ImageView imageViewCameraButton;
@@ -80,12 +79,12 @@ public class CameraFragment extends Fragment {
 
 
 
-    public CameraFragment() {
+    public CustomCameraFragment() {
         // Required empty public constructor
     }
 
-    public static CameraFragment create(){
-        return new CameraFragment();
+    public static CustomCameraFragment create(){
+        return new CustomCameraFragment();
     }
 
     @Override
@@ -259,6 +258,7 @@ public class CameraFragment extends Fragment {
         try{
             SurfaceTexture texture = textureView.getSurfaceTexture();
             assert  texture != null;
+
             texture.setDefaultBufferSize(imageDimension.getWidth(), imageDimension.getHeight());
             Surface surface = new Surface(texture);
             captureRequestBuilder = camera.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
