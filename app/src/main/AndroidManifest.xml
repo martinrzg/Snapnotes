@@ -61,8 +61,8 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.CalendarActivity"></activity>
-        <activity android:name=".activity.DatabaseActivity"></activity>
+        <activity android:name=".activity.CalendarActivity" />
+        <activity android:name=".activity.DatabaseActivity" />
 
 
     </application>
