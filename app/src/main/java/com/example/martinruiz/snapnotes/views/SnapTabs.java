@@ -17,6 +17,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.example.martinruiz.snapnotes.R;
+import com.example.martinruiz.snapnotes.fragments.SimpleCameraFragment;
+import com.github.florent37.camerafragment.CameraFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +32,8 @@ public class SnapTabs extends FrameLayout implements ViewPager.OnPageChangeListe
     @BindView(R.id.imageViewCameraButton)ImageView imageViewCameraButton;
     @BindView(R.id.imageViewGalleryButton)ImageView imageViewGalleryButton;
     @BindView(R.id.imageViewProfileButton)ImageView imageViewProfileButton;
+    @BindView(R.id.imageViewCameraFlash)ImageView imageViewCameraFlash;
+    @BindView(R.id.imageViewCameraSwitch)ImageView imageViewCameraSwitch;
     @BindView(R.id.viewPageIndicator) View viewPageIndicator;
 
     private int center, side, distanceTranslationX, indicatorTranslationX, distanceTranslationY;
@@ -68,6 +72,15 @@ public class SnapTabs extends FrameLayout implements ViewPager.OnPageChangeListe
             }
         });
 
+       imageViewCameraFlash.setOnClickListener(view1 -> {
+            SimpleCameraFragment.flashToggle();
+            imageViewCameraFlash.setImageResource(SimpleCameraFragment.flashIcon);
+       });
+       imageViewCameraSwitch.setOnClickListener(view1 -> {
+           SimpleCameraFragment.switchFrontBack();
+           imageViewCameraSwitch.setImageResource(SimpleCameraFragment.cameraIcon);
+       });
+
     }
 
     public void setViewPager(ViewPager viewPager){
@@ -82,12 +95,15 @@ public class SnapTabs extends FrameLayout implements ViewPager.OnPageChangeListe
                 viewPager.setCurrentItem(2);
             }
         });
-        /*imageViewCameraButton.setOnClickListener(view -> {
+        imageViewCameraButton.setOnClickListener(view -> {
 
             if(viewPager.getCurrentItem() != 1){
                 viewPager.setCurrentItem(1);
+            }else{
+                SimpleCameraFragment.takePhoto();
+
             }
-        });*/
+        });
     }
 
     private void animateElements (float percentFromCenter){
@@ -99,6 +115,9 @@ public class SnapTabs extends FrameLayout implements ViewPager.OnPageChangeListe
         imageViewProfileButton.setTranslationX( -percentFromCenter * distanceTranslationX);
         imageViewProfileButton.setScaleX(scale);
         imageViewProfileButton.setScaleY(scale);
+
+        imageViewCameraSwitch.setAlpha(1-percentFromCenter);
+        imageViewCameraFlash.setAlpha(1-percentFromCenter);
 
         viewPageIndicator.setAlpha(percentFromCenter);
         viewPageIndicator.setScaleX(percentFromCenter);
