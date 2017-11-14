@@ -3,32 +3,42 @@ package com.example.martinruiz.snapnotes.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.martinruiz.snapnotes.DatabaseCRUD;
 import com.example.martinruiz.snapnotes.R;
+import com.example.martinruiz.snapnotes.utils.CloudStorageManager;
 import com.github.florent37.camerafragment.CameraFragment;
 import com.github.florent37.camerafragment.PreviewActivity;
 import com.github.florent37.camerafragment.configuration.Configuration;
+import com.github.florent37.camerafragment.internal.ui.BaseAnncaFragment;
 import com.github.florent37.camerafragment.listeners.CameraFragmentResultListener;
 import com.github.florent37.camerafragment.listeners.CameraFragmentStateListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.xml.transform.Result;
+
+import static android.app.Activity.RESULT_OK;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SimpleCameraFragment extends Fragment {
+public class SimpleCameraFragment extends BaseAnncaFragment{
     private final String TAG = "CameraFragment";
-    private static final int REQUEST_PREVIEW_CODE = 300;
 
+    private StorageReference storageReference ;
 
-
-    private ImageView imageViewCameraButton;
-    private static CameraFragment cameraFragment;
+    private static SimpleCameraFragment cameraFragment;
     public static int flashIcon ;
     public static int cameraIcon ;
 
@@ -36,11 +46,8 @@ public class SimpleCameraFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-
-
     @SuppressLint("MissingPermission")
-    public static CameraFragment create(){
+    public static SimpleCameraFragment create(){
         Configuration.Builder builder = new Configuration.Builder();
         builder
                 .setFlashMode(Configuration.FLASH_MODE_OFF)
@@ -50,14 +57,13 @@ public class SimpleCameraFragment extends Fragment {
         flashIcon = R.drawable.ic_flash_off_white_24dp;
         cameraIcon = R.drawable.ic_camera_front_white_24dp;
 
-        cameraFragment = CameraFragment.newInstance(builder.build());
+
+       // cameraFragment = SimpleCameraFragment.newInstance(builder.build());
+        cameraFragment = (SimpleCameraFragment) BaseAnncaFragment.newInstance(new SimpleCameraFragment(), builder.build());
         init();
+
         return cameraFragment;
     }
-
-
-
-
 
     public static void init(){
 
@@ -129,19 +135,20 @@ public class SimpleCameraFragment extends Fragment {
 
             }
         });
+    }
 
-        cameraFragment.setResultListener(new CameraFragmentResultListener() {
-            @Override
-            public void onVideoRecorded(String filePath) {
-
-            }
-
-            @Override
-            public void onPhotoTaken(byte[] bytes, String filePath) {
-                Intent intentPreview  = PreviewActivity.newIntentPhoto(cameraFragment.getContext(), filePath);
-                cameraFragment.startActivityForResult(intentPreview,REQUEST_PREVIEW_CODE);
-            }
-        });
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case PreviewActivity.ACTION_CONFIRM:
+                if(resultCode == RESULT_OK){
+                    //Toast.makeText(getContext(), "TO UPLOAD", Toast.LENGTH_SHORT).show();
+                    String filePath = data.getStringExtra("file_path_arg");
+                    CloudStorageManager.uploadImage(filePath, "Computer Graphics");
+                }
+             default:
+                 super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     private static String createImageFileName() {
@@ -152,19 +159,16 @@ public class SimpleCameraFragment extends Fragment {
         return imageFileName;
     }
 
-
-
     public static void takePhoto(){
-        //System.out.println("TAKING PHOTOOOOOOOOOOOOOOOOOOo");
+
         cameraFragment.takePhotoOrCaptureVideo(new CameraFragmentResultListener() {
             @Override
             public void onVideoRecorded(String filePath) {
-
             }
-
             @Override
             public void onPhotoTaken(byte[] bytes, String filePath) {
-
+                Intent intentPreview  = PreviewActivity.newIntentPhoto(cameraFragment.getActivity(), filePath);
+                cameraFragment.startActivityForResult(intentPreview,PreviewActivity.ACTION_CONFIRM);
             }
         }, cameraFragment.getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath()
         , createImageFileName() );
@@ -172,8 +176,6 @@ public class SimpleCameraFragment extends Fragment {
 
     public static void flashToggle(){
         cameraFragment.toggleFlashMode();
-
-
     }
     public static void switchFrontBack(){
         cameraFragment.switchCameraTypeFrontBack();
