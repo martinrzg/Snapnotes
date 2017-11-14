@@ -127,7 +127,7 @@ public class GalleryFragment extends Fragment {
 
                              @Override
                              protected void onBindViewHolder(NotesHolder holder, int position, Notes model) {
-                                 holder.textView.setText(model.getDay());
+                                 holder.textView.setText(model.getId());
                              }
 
 
