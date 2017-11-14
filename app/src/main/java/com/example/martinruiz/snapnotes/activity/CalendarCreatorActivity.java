@@ -37,13 +37,24 @@ public class CalendarCreatorActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        addNewCourse(mondayCol);
+        Course course = new Course("Nueva materia en esta semana carnal", Day.MONDAY,8, 30,10,15);
+        Course course2 = new Course("Otra materia carnal", Day.WEDNESDAY,12, 05,15,45);
+
+        addNewCourse(course);
+        addNewCourse(course2);
     }
 
-    private void addNewCourse(ConstraintLayout weekDay){
+    private void addNewCourse(Course course){
 
-        // Retrive Course Data
-        Course course = new Course("Nueva materia en esta semana carnal", Day.MONDAY,8, 30,10,15);
+        ConstraintLayout weekDay;
+        switch (course.getDay()){
+            case MONDAY: weekDay = mondayCol; break;
+            case TUESDAY: weekDay = tuesdayCol; break;
+            case WEDNESDAY: weekDay = wednesdayCol; break;
+            case THURSDAY: weekDay = thurdayCol; break;
+            case FRIDAY: weekDay = fridayCol; break;
+            default: weekDay = mondayCol; break;
+        }
 
         int width = DisplayTool.convertDpToPixel(100, this);
         int height = DisplayTool.convertDpToPixel(course.getCellHeight(), this);
