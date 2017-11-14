@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.martinruiz.snapnotes.R;
 import com.example.martinruiz.snapnotes.util.DisplayTool;
 import com.example.martinruiz.snapnotes.views.calendar.Course;
+import com.example.martinruiz.snapnotes.views.calendar.Day;
 
 import java.util.zip.Inflater;
 
@@ -38,13 +39,13 @@ public class CalendarCreatorActivity extends AppCompatActivity {
     private void addNewCourse(ConstraintLayout weekDay){
 
         // Retrive Course Data
-        //Course course = new Course("Nueva materia en esta semana carnal", )
+        Course course = new Course("Nueva materia en esta semana carnal", Day.MONDAY,8, 30,10,15);
 
         int width = DisplayTool.convertDpToPixel(100, this);
-        int height = DisplayTool.convertDpToPixel(50, this);
-        int margin =  DisplayTool.convertDpToPixel(42,this);
+        int height = DisplayTool.convertDpToPixel(course.getCellHeight(), this);
+        int margin =  DisplayTool.convertDpToPixel(course.getMarginInDp(),this);
 
-        View courseCell = createCell(width, height, "Nueva materia en esta semana carnal");
+        View courseCell = createCell(width, height,course.getName());
         ConstraintSet constraints = new ConstraintSet();
         weekDay.addView(courseCell);
 

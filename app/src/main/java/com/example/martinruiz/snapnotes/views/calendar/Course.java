@@ -24,10 +24,19 @@ public class Course {
         this.endMinute = endMinute;
     }
 
-    public int getDeepInDP(){
+    public int getMarginInDp(){
+        float start = startHour + (float)startMinute/60;
         int initial = 42;
         int baseDPperHour = 50;
-        return initial + (startHour - INITIAL_HOUR) * baseDPperHour;
+        return initial + (int)((start - INITIAL_HOUR) * baseDPperHour);
+    }
+
+    public int getCellHeight(){
+        float start = startHour + (float)startMinute/60;
+        float end = endHour + (float)endMinute/60;
+        int baseDPperHour = 50;
+        int height = (int) ((end - start) * baseDPperHour);
+        return height;
     }
 
     public String getName() {
