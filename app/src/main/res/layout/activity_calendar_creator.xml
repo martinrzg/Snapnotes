@@ -269,6 +269,7 @@
                     android:orientation="horizontal">
 
                     <android.support.constraint.ConstraintLayout
+                        android:id="@+id/monday_container"
                         android:layout_width="100dp"
                         android:layout_height="match_parent">
 
