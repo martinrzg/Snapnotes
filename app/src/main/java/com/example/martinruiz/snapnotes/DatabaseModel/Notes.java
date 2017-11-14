@@ -36,17 +36,6 @@ public class Notes {
 
     }
 
-    /**
-     *Constructor to a new note without id.
-     * @param url  Url of the note
-     * @param text Text of the note
-     * @param day Day of the note
-     */
-    public Notes( String url, String text, String day) {
-        this.url = url;
-        this.text = text;
-        this.day = day;
-    }
 
     public String getUrl() {
         return url;
