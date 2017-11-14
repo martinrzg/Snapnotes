@@ -119,6 +119,14 @@ public class SnapTabs extends FrameLayout implements ViewPager.OnPageChangeListe
         imageViewCameraSwitch.setAlpha(1-percentFromCenter);
         imageViewCameraFlash.setAlpha(1-percentFromCenter);
 
+        if(percentFromCenter >= 0.95){
+            imageViewCameraSwitch.setVisibility(GONE);
+            imageViewCameraFlash.setVisibility(GONE);
+        }else {
+            imageViewCameraSwitch.setVisibility(VISIBLE);
+            imageViewCameraFlash.setVisibility(VISIBLE);
+        }
+
         viewPageIndicator.setAlpha(percentFromCenter);
         viewPageIndicator.setScaleX(percentFromCenter);
     }
