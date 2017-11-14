@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -214,11 +215,9 @@ public class DatabaseCRUD {
                             // [START_EXCLUDE]
                             if (days == null) {
 
-                                // Board is null, error out
-                                Log.e(TAG, "Boards is unexpectedly null");
+                                Log.e(TAG, "Courses is unexpectedly null");
                             } else {
 
-                                // Write new Board
                                 newCourse(mDatabase,days, courses.getCourses(), course);
 
                             }
@@ -257,8 +256,10 @@ public class DatabaseCRUD {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get board value
 
-                        Log.d("entra","entra");
+                        String name = "";
+//                        Log.d("entra","entra");
                         Days days = dataSnapshot.getValue(Days.class);
+
 
                         Date currentHour = new Date();
                         try {
@@ -290,9 +291,10 @@ public class DatabaseCRUD {
                                     Log.d("horas: ", startDate+" "+endDate+""+currentHour );
                                     if(currentHour.before(endDate) && currentHour.after(startDate)){
                                         Log.d("hora","si hay: "+courses.getName());
-
+                                        name = courses.getName();
                                     }
                                 }
+                                //TODO: Send name to the
                             }
                     }
 
@@ -301,7 +303,6 @@ public class DatabaseCRUD {
                         Log.w(TAG, "getPost:onCancelled", databaseError.toException());
 
                     }
-
                 });
     }
 }
