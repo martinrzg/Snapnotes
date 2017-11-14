@@ -1,6 +1,7 @@
 package com.example.martinruiz.snapnotes;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.martinruiz.snapnotes.DatabaseModel.Boards;
 import com.example.martinruiz.snapnotes.DatabaseModel.BoardContent;
@@ -12,7 +13,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +30,7 @@ import static android.content.ContentValues.TAG;
 
 
 public class DatabaseCRUD {
+
 
     public static final String BOARDS = "boards";
     public static final String CALENDAR = "calendar";
@@ -69,9 +76,8 @@ public class DatabaseCRUD {
 
         if (boardContent.getNotes() == null) {
 
-            note.setId(key);                                                      //Add the id to the note object.
             Map<String, Object> notes = new HashMap();                            //If the notes is empty initialize the HashMap for the notes.
-            notes.put(key, note);                                                 //Add th new note to the HashMap
+            notes.put(note.id, note);                                                 //Add th new note to the HashMap
             boardContent.setNotes(notes);                                         //Add the notes HashMap to the boardContent
             mDatabase.child("boards").child(boardId).setValue(boardContent);      //Update the data of the database
         } else {
@@ -208,11 +214,9 @@ public class DatabaseCRUD {
                             // [START_EXCLUDE]
                             if (days == null) {
 
-                                // Board is null, error out
-                                Log.e(TAG, "Boards is unexpectedly null");
+                                Log.e(TAG, "Courses is unexpectedly null");
                             } else {
 
-                                // Write new Board
                                 newCourse(mDatabase,days, courses.getCourses(), course);
 
                             }
@@ -237,5 +241,67 @@ public class DatabaseCRUD {
         Days courses = new Days(coursesMap);
         days.put(course.getDay(),courses);
         mDatabase.child(CALENDAR).child(course.getDay()).setValue(courses);
+    }
+
+    public static void getBoardHour(DatabaseReference mDatabase)  {
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat day = new SimpleDateFormat("E");
+        DateFormat df = new SimpleDateFormat("HH:mm");
+
+        mDatabase.child(CALENDAR).child(day.format(currentTime)).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get board value
+
+                        String name = "";
+//                        Log.d("entra","entra");
+                        Days days = dataSnapshot.getValue(Days.class);
+
+
+                        Date currentHour = new Date();
+                        try {
+                            currentHour = df.parse(format.format(currentTime));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                            // [START_EXCLUDE]
+                            if (days == null) {
+
+                                // Board is null, error out
+                                Log.e(TAG, "Days is unexpectedly null");
+                            } else {
+
+                                // Write new Board
+                                for (String key: days.getCourses().keySet()){
+                                    Courses courses = days.getCourses().get(key);
+
+                                    Date startDate = new Date();
+                                    Date endDate= new Date();
+                                    try {
+                                        startDate = df.parse(courses.getStart());
+                                        String newDateString = df.format(startDate);
+                                        endDate = df.parse(courses.getEnd());
+                                        System.out.println(newDateString);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                    Log.d("horas: ", startDate+" "+endDate+""+currentHour );
+                                    if(currentHour.before(endDate) && currentHour.after(startDate)){
+                                        Log.d("hora","si hay: "+courses.getName());
+                                        name = courses.getName();
+                                    }
+                                }
+                                //TODO: Send name to the
+                            }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(TAG, "getPost:onCancelled", databaseError.toException());
+
+                    }
+                });
     }
 }

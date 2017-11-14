@@ -34,7 +34,7 @@ public class DatabaseActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        DatabaseCRUD.writeNewNote(mDatabase.child(mAuth.getUid()),new Notes("wwww","ffasdfwverfd","34fsaf"), "Graficas");
+//        DatabaseCRUD.writeNewNote(mDatabase.child(mAuth.getUid()),new Notes("id","wwww","ffasdfwverfd","34fsaf"), "Graficas");
         //DatabaseCRUD.writeNewBoard(mDatabase.child(mAuth.getUid()),new BoardContent("Base de datos", new HashMap<String, Object>()));
 //        DatabaseCRUD.writeNewCalendar(mDatabase.child(mAuth.getUid()), new Courses("Seguridad", "jueves", "11:30", "1:00"));
 //        DatabaseCRUD.writeNewCalendar(mDatabase.child(mAuth.getUid()), new Courses("Graficas", "viernes", "11:30", "1:00"));
