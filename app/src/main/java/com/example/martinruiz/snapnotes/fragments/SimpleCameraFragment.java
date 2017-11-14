@@ -3,32 +3,36 @@ package com.example.martinruiz.snapnotes.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.martinruiz.snapnotes.DatabaseCRUD;
+import com.example.martinruiz.snapnotes.DatabaseModel.Courses;
+import com.example.martinruiz.snapnotes.DatabaseModel.Days;
 import com.example.martinruiz.snapnotes.R;
 import com.example.martinruiz.snapnotes.utils.CloudStorageManager;
-import com.github.florent37.camerafragment.CameraFragment;
 import com.github.florent37.camerafragment.PreviewActivity;
 import com.github.florent37.camerafragment.configuration.Configuration;
 import com.github.florent37.camerafragment.internal.ui.BaseAnncaFragment;
 import com.github.florent37.camerafragment.listeners.CameraFragmentResultListener;
 import com.github.florent37.camerafragment.listeners.CameraFragmentStateListener;
-import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
-import javax.xml.transform.Result;
-
 import static android.app.Activity.RESULT_OK;
+import static com.example.martinruiz.snapnotes.DatabaseCRUD.CALENDAR;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -144,7 +148,10 @@ public class SimpleCameraFragment extends BaseAnncaFragment{
                 if(resultCode == RESULT_OK){
                     //Toast.makeText(getContext(), "TO UPLOAD", Toast.LENGTH_SHORT).show();
                     String filePath = data.getStringExtra("file_path_arg");
-                    CloudStorageManager.uploadImage(filePath, "Computer Graphics");
+                    getBoardHour(FirebaseDatabase.getInstance().getReference().child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                , filePath);
+
+
                 }
              default:
                  super.onActivityResult(requestCode, resultCode, data);
@@ -179,6 +186,69 @@ public class SimpleCameraFragment extends BaseAnncaFragment{
     }
     public static void switchFrontBack(){
         cameraFragment.switchCameraTypeFrontBack();
+    }
+
+    public static void getBoardHour(DatabaseReference mDatabase, String filePath)  {
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat day = new SimpleDateFormat("E");
+        DateFormat df = new SimpleDateFormat("HH:mm");
+
+        mDatabase.child(CALENDAR).child(day.format(currentTime)).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get board value
+
+                        String name = "";
+//                        Log.d("entra","entra");
+                        Days days = dataSnapshot.getValue(Days.class);
+
+
+                        Date currentHour = new Date();
+                        try {
+                            currentHour = df.parse(format.format(currentTime));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        // [START_EXCLUDE]
+                        if (days == null) {
+
+                            // Board is null, error out
+                            //Log.e(TAG, "Days is unexpectedly null");
+                        } else {
+
+                            // Write new Board
+                            for (String key: days.getCourses().keySet()){
+                                Courses courses = days.getCourses().get(key);
+
+                                Date startDate = new Date();
+                                Date endDate= new Date();
+                                try {
+                                    startDate = df.parse(courses.getStart());
+                                    String newDateString = df.format(startDate);
+                                    endDate = df.parse(courses.getEnd());
+                                    System.out.println(newDateString);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                Log.d("horas: ", startDate+" "+endDate+""+currentHour );
+                                if(currentHour.before(endDate) && currentHour.after(startDate)){
+                                    Log.d("hora","si hay: "+courses.getName());
+                                    name = courses.getName();
+                                }
+                            }
+                            //TODO: Send name to the
+                            CloudStorageManager.uploadImage(filePath, name);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //Log.w(TAG, "getPost:onCancelled", databaseError.toException());
+
+                    }
+                });
     }
 
 
