@@ -24,7 +24,11 @@ import butterknife.ButterKnife;
 
 public class CalendarCreatorActivity extends AppCompatActivity {
 
-    @BindView(R.id.monday_container) ConstraintLayout mondayCol;
+    @BindView(R.id.monday_column) ConstraintLayout mondayCol;
+    @BindView(R.id.tuesday_column) ConstraintLayout tuesdayCol;
+    @BindView(R.id.wednesday_column) ConstraintLayout wednesdayCol;
+    @BindView(R.id.thursday_column) ConstraintLayout thurdayCol;
+    @BindView(R.id.friday_column) ConstraintLayout fridayCol;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
