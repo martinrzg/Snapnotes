@@ -1,15 +1,14 @@
 package com.example.martinruiz.snapnotes.activity;
 
-import android.content.Intent;
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.view_background) View backgroundView;
     @BindView(R.id.ma_view_pager) ViewPager viewPager;
     @BindView(R.id.snapTabs) SnapTabs snapTabs;
-    private TextureView textureView;
     private MainPageAdapter adapter;
 
     @Override
@@ -46,9 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         viewPager.setCurrentItem(1);
-
-        assert  textureView != null;
-        //textureView = findViewById(R.id.textureView);
 
         final int blue   = ContextCompat.getColor(this, R.color.light_blue);
         final int purple = ContextCompat.getColor(this, R.color.light_purple);
@@ -87,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
