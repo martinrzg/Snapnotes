@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.example.martinruiz.snapnotes.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
@@ -31,6 +33,7 @@ import butterknife.OnClick;
  */
 public class GalleryFragment extends Fragment {
 
+    private DatabaseReference mDatabase;
     @BindView(R.id.rvGallery) RecyclerView rvGallery;
     @BindView(R.id.ibBack) ImageButton ibBack;
     @BindView(R.id.tvGalleryName) TextView tvGalleryName;
@@ -38,6 +41,7 @@ public class GalleryFragment extends Fragment {
     private FirebaseRecyclerAdapter adapter;
     private FirebaseRecyclerAdapter adapter1;
     private String selectedBoard;
+
 
 
     public GalleryFragment() {
@@ -54,6 +58,7 @@ public class GalleryFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_gallery, container, false);
         ButterKnife.bind(this,view);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
                 .child(FirebaseAuth.getInstance().getUid())
@@ -151,11 +156,16 @@ public class GalleryFragment extends Fragment {
         rvGallery.setLayoutManager(layoutManager);
         adapter.startListening();
 
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getBack();
+            }
+        });
         return view;
 
     }
 
-    @OnClick(R.id.ibBack)
     public void getBack(){
         tvGalleryName.setText("Gallery");
         ibBack.setVisibility(View.GONE);
