@@ -8,7 +8,7 @@
 
     <EditText
         android:id="@+id/dialog_course_title"
-        android:layout_width="312dp"
+        android:layout_width="220dp"
         android:layout_height="47dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -25,28 +25,43 @@
         android:layout_width="45dp"
         android:layout_height="102dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintHorizontal_bias="0.11"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <NumberPicker
+        android:id="@+id/dialog_end_hour"
+        android:layout_width="45dp"
+        android:layout_height="102dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/dialog_start_minute"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <NumberPicker
+        android:id="@+id/dialog_end_minute"
+        android:layout_width="45dp"
+        android:layout_height="102dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/dialog_end_hour"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <NumberPicker
         android:id="@+id/dialog_start_minute"
         android:layout_width="45dp"
         android:layout_height="102dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.012"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toEndOf="@+id/dialog_start_hour"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Spinner
         android:id="@+id/dialog_weekday"
-        android:layout_width="312dp"
+        android:layout_width="220dp"
         android:layout_height="42dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -66,8 +81,19 @@
         android:text="Start Time"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.13"
+        app:layout_constraintHorizontal_bias="0.146"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_weekday" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="24dp"
+        android:text="End Time"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/dialog_weekday" />
 
 </android.support.constraint.ConstraintLayout>
