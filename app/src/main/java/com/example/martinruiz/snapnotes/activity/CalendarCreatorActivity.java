@@ -1,5 +1,6 @@
 package com.example.martinruiz.snapnotes.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
@@ -21,6 +22,7 @@ import java.util.zip.Inflater;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CalendarCreatorActivity extends AppCompatActivity {
 
@@ -46,6 +48,11 @@ public class CalendarCreatorActivity extends AppCompatActivity {
         addNewCourse(course1);
         addNewCourse(course2);
         addNewCourse(course3);
+
+    }
+
+    @OnClick(R.id.monday_column)
+    public void addInMonday(){
 
     }
 
