@@ -1,6 +1,6 @@
 package com.example.martinruiz.snapnotes.activity;
 
-        import com.example.martinruiz.snapnotes.DatabaseCRUD;
+        import com.example.martinruiz.snapnotes.utils.DatabaseCRUD;
         import com.example.martinruiz.snapnotes.DatabaseModel.BoardContent;
         import com.example.martinruiz.snapnotes.DatabaseModel.Courses;
         import com.example.martinruiz.snapnotes.R;
@@ -32,7 +32,6 @@ package com.example.martinruiz.snapnotes.activity;
         import android.app.ProgressDialog;
         import android.content.Context;
         import android.content.DialogInterface;
-        import android.content.Entity;
         import android.content.Intent;
         import android.content.SharedPreferences;
         import android.net.ConnectivityManager;
@@ -40,17 +39,11 @@ package com.example.martinruiz.snapnotes.activity;
         import android.os.AsyncTask;
         import android.os.Bundle;
         import android.support.annotation.NonNull;
-        import android.support.design.widget.Snackbar;
         import android.support.v7.app.AlertDialog;
         import android.text.TextUtils;
-        import android.text.method.ScrollingMovementMethod;
         import android.util.Log;
-        import android.view.View;
-        import android.view.ViewGroup;
         import android.widget.ArrayAdapter;
         import android.widget.Button;
-        import android.widget.LinearLayout;
-        import android.widget.TextView;
         import android.widget.Toast;
 
         import java.io.IOException;
@@ -58,7 +51,6 @@ package com.example.martinruiz.snapnotes.activity;
         import java.util.ArrayList;
         import java.util.Arrays;
         import java.util.Date;
-        import java.util.HashMap;
         import java.util.List;
 
         import butterknife.BindView;

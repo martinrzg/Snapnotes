@@ -4,11 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.martinruiz.snapnotes.DatabaseCRUD;
 import com.example.martinruiz.snapnotes.DatabaseModel.BoardContent;
 import com.example.martinruiz.snapnotes.DatabaseModel.Boards;
-import com.example.martinruiz.snapnotes.DatabaseModel.Courses;
-import com.example.martinruiz.snapnotes.DatabaseModel.Notes;
 import com.example.martinruiz.snapnotes.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;

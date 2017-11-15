@@ -1,4 +1,4 @@
-package com.example.martinruiz.snapnotes;
+package com.example.martinruiz.snapnotes.utils;
 
 import android.util.Log;
 import android.widget.Toast;
@@ -81,7 +81,6 @@ public class DatabaseCRUD {
             boardContent.setNotes(notes);                                         //Add the notes HashMap to the boardContent
             mDatabase.child("boards").child(boardId).setValue(boardContent);      //Update the data of the database
         } else {
-
             boardContent.getNotes().put(note.getId(), note);                               //Add th new note to the HashMap
             mDatabase.child(BOARDS).child(boardId).setValue(boardContent);      //Update the data of the database
         }
