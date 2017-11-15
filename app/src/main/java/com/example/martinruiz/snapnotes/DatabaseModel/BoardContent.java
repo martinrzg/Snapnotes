@@ -14,7 +14,7 @@ public class BoardContent {
 
 
     public String name;
-    public Map<String, Object> notes;
+    public Map<String, Notes> notes;
 
 
 
@@ -33,7 +33,7 @@ public class BoardContent {
      * @param name Name of the Board
      * @param notes HasMap of notes
      */
-    public BoardContent( String name, Map<String, Object> notes) {
+    public BoardContent( String name, Map<String, Notes> notes) {
         this.name = name;
         this.notes = notes;
     }
@@ -48,11 +48,11 @@ public class BoardContent {
 
 
 
-    public Map<String, Object> getNotes() {
+    public Map<String, Notes> getNotes() {
         return notes;
     }
 
-    public void setNotes(Map<String, Object> notes) {
+    public void setNotes(Map<String, Notes> notes) {
         this.notes = notes;
     }
 

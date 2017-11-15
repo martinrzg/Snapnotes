@@ -14,17 +14,33 @@ import android.widget.Toast;
 
 import com.example.martinruiz.snapnotes.utils.DatabaseCRUD;
 import com.example.martinruiz.snapnotes.DatabaseModel.BoardContent;
+import com.example.martinruiz.snapnotes.DatabaseModel.Courses;
+import com.example.martinruiz.snapnotes.DatabaseModel.Days;
 import com.example.martinruiz.snapnotes.DatabaseModel.Notes;
 import com.example.martinruiz.snapnotes.R;
+import com.example.martinruiz.snapnotes.utils.CloudStorageManager;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.example.martinruiz.snapnotes.DatabaseCRUD.BOARDS;
+import static com.example.martinruiz.snapnotes.DatabaseCRUD.CALENDAR;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,7 +76,7 @@ public class GalleryFragment extends Fragment {
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
                 .child(FirebaseAuth.getInstance().getUid())
-                .child(DatabaseCRUD.BOARDS)
+                .child(BOARDS)
                 .limitToLast(50);
 
 
@@ -87,14 +103,17 @@ public class GalleryFragment extends Fragment {
 
                          BoardContent boardContent = (BoardContent) adapter.getItem(position);
                          selectedBoard = boardContent.getName();
+                         getBoardNotes(mDatabase, selectedBoard);
+
 
                          tvGalleryName.setText(selectedBoard);
                          ibBack.setVisibility(View.VISIBLE);
 
+                         //TODO: Delete to add gridview till next todo
                          Query query1 = FirebaseDatabase.getInstance()
                                  .getReference()
                                  .child(FirebaseAuth.getInstance().getUid())
-                                 .child(DatabaseCRUD.BOARDS)
+                                 .child(BOARDS)
                                  .child(selectedBoard)
                                  .child("notes")
                                  .limitToLast(50);
@@ -132,6 +151,7 @@ public class GalleryFragment extends Fragment {
                          };
                          rvGallery.setAdapter(adapter1);
                          adapter1.startListening();
+                         //TODO: End delete
 
 
                          Toast.makeText(getActivity(), "Item clicked at " + boardContent.getName(), Toast.LENGTH_SHORT).show();
@@ -235,5 +255,46 @@ public class GalleryFragment extends Fragment {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+
+    public static void getBoardNotes(DatabaseReference mDatabase, String boardName)  {
+
+
+        mDatabase.child(BOARDS).child(boardName).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get board value
+
+                        ArrayList<Notes> boardNotes = new ArrayList<>();
+//                        Log.d("entra","entra");
+                        BoardContent boardContent = dataSnapshot.getValue(BoardContent.class);
+
+
+
+                        // [START_EXCLUDE]
+                        if (boardContent == null) {
+
+                            // Notes is null, error out
+                            //Log.e(TAG, "Days is unexpectedly null");
+                        } else {
+
+                            // Write new Board
+                            for (String key: boardContent.getNotes().keySet()){
+                                Notes notes = boardContent.getNotes().get(key);
+                                boardNotes.add(notes);
+                                Log.d("Note name",notes.getId());
+
+                            }
+                            //TODO: add the gridview here
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //Log.w(TAG, "getPost:onCancelled", databaseError.toException());
+
+                    }
+                });
     }
 }

@@ -38,6 +38,7 @@ package com.example.martinruiz.snapnotes.activity;
         import android.net.NetworkInfo;
         import android.os.AsyncTask;
         import android.os.Bundle;
+        import android.preference.PreferenceManager;
         import android.support.annotation.NonNull;
         import android.support.v7.app.AlertDialog;
         import android.text.TextUtils;
@@ -78,6 +79,8 @@ public class CalendarActivity extends Activity
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = { CalendarScopes.CALENDAR_READONLY };
 
+    private SharedPreferences prefs;
+
     @BindView(R.id.bCalendarSync) Button bCalendarSync;
 
     /**
@@ -91,7 +94,7 @@ public class CalendarActivity extends Activity
        ButterKnife.bind(this);
 
         mAuth = FirebaseAuth.getInstance();
-
+        prefs = this.getSharedPreferences("com.example.martinruiz.snapnotes."+mAuth.getCurrentUser().getUid(), Context.MODE_PRIVATE);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mProgress = new ProgressDialog(this);
@@ -124,10 +127,8 @@ public class CalendarActivity extends Activity
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 getEventsFromApi(calendarModels.get(which));
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
                 dialog.dismiss();
-                finish();
+
             }
         });
         builder.show();
@@ -428,7 +429,13 @@ public class CalendarActivity extends Activity
             if (output == null || output.size() == 0) {
                 Toast.makeText(getApplicationContext(),"No results returned.",Toast.LENGTH_LONG).show();
             } else {
-                Log.d(TAG,TextUtils.join("\n", output));
+                prefs.edit().putBoolean("calendar",true).apply();
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+//                Log.d(TAG,TextUtils.join("\n", output));
+                finish();
+
             }
         }
 

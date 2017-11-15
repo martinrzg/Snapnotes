@@ -1,6 +1,8 @@
 package com.example.martinruiz.snapnotes.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -51,6 +53,8 @@ public class LogInActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+    private SharedPreferences prefs ;
+
     private CallbackManager mCallbackManager;
 
     private String TAG = LogInActivity.class.getSimpleName();
@@ -66,6 +70,7 @@ public class LogInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_log_in);
         ButterKnife.bind(this);
         background.setAlpha(0.7f);
+
 
         int i = random.nextInt(images.length );
         Glide.with(this).load(images[i]).into(background);
@@ -110,6 +115,10 @@ public class LogInActivity extends AppCompatActivity {
 
     }
 
+    private Boolean getPrefs(String user){
+        prefs = this.getSharedPreferences("com.example.martinruiz.snapnotes."+user, Context.MODE_PRIVATE);
+        return prefs.getBoolean("calendar",false);
+    }
 
 
     //Click listener for the sing in button
@@ -161,9 +170,16 @@ public class LogInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(getApplicationContext() ,MainActivity.class);
-                            intent.putExtra("uid",user.getUid());
-                            startActivity(intent);
+                            if(!getPrefs(user.getUid())) {
+                                Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
+                                startActivity(intent);
+
+                            }else {
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
+
+                            }
+
                             finish();
                             
                         } else {
@@ -191,9 +207,15 @@ public class LogInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(getApplicationContext() ,CalendarActivity.class);
-                            intent.putExtra("uid",user.getUid());
-                            startActivity(intent);
+                            if(!getPrefs(user.getUid())) {
+                                Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
+                                startActivity(intent);
+
+                            }else {
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
+
+                            }
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
