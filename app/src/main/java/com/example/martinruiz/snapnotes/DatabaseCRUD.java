@@ -81,8 +81,8 @@ public class DatabaseCRUD {
             boardContent.setNotes(notes);                                         //Add the notes HashMap to the boardContent
             mDatabase.child("boards").child(boardId).setValue(boardContent);      //Update the data of the database
         } else {
-            note.setId(key);                                                      //Add the id to the note object.
-            boardContent.getNotes().put(key, note);                               //Add th new note to the HashMap
+
+            boardContent.getNotes().put(note.getId(), note);                               //Add th new note to the HashMap
             mDatabase.child(BOARDS).child(boardId).setValue(boardContent);      //Update the data of the database
         }
 
@@ -243,65 +243,5 @@ public class DatabaseCRUD {
         mDatabase.child(CALENDAR).child(course.getDay()).setValue(courses);
     }
 
-    public static void getBoardHour(DatabaseReference mDatabase)  {
-        Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat day = new SimpleDateFormat("E");
-        DateFormat df = new SimpleDateFormat("HH:mm");
 
-        mDatabase.child(CALENDAR).child(day.format(currentTime)).addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // Get board value
-
-                        String name = "";
-//                        Log.d("entra","entra");
-                        Days days = dataSnapshot.getValue(Days.class);
-
-
-                        Date currentHour = new Date();
-                        try {
-                            currentHour = df.parse(format.format(currentTime));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                            // [START_EXCLUDE]
-                            if (days == null) {
-
-                                // Board is null, error out
-                                Log.e(TAG, "Days is unexpectedly null");
-                            } else {
-
-                                // Write new Board
-                                for (String key: days.getCourses().keySet()){
-                                    Courses courses = days.getCourses().get(key);
-
-                                    Date startDate = new Date();
-                                    Date endDate= new Date();
-                                    try {
-                                        startDate = df.parse(courses.getStart());
-                                        String newDateString = df.format(startDate);
-                                        endDate = df.parse(courses.getEnd());
-                                        System.out.println(newDateString);
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-                                    Log.d("horas: ", startDate+" "+endDate+""+currentHour );
-                                    if(currentHour.before(endDate) && currentHour.after(startDate)){
-                                        Log.d("hora","si hay: "+courses.getName());
-                                        name = courses.getName();
-                                    }
-                                }
-                                //TODO: Send name to the
-                            }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.w(TAG, "getPost:onCancelled", databaseError.toException());
-
-                    }
-                });
-    }
 }

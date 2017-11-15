@@ -15,7 +15,6 @@ public class Notes {
     public String id;
     public String url;
     public String text;
-    public String day;
 
 
     public Notes() {
@@ -26,14 +25,11 @@ public class Notes {
      * @param id  Id of the note
      * @param url  Url of the note
      * @param text Text of the note
-     * @param day Day of the note
      */
-    public Notes( String id, String url, String text, String day) {
+    public Notes( String id, String url, String text) {
         this.id = id;
         this.url = url;
         this.text = text;
-        this.day = day;
-
     }
 
 
@@ -53,13 +49,6 @@ public class Notes {
         this.text = text;
     }
 
-    public String getDay() {
-        return day;
-    }
-
-    public void setDay(String day) {
-        this.day = day;
-    }
 
     public String getId() {
         return id;
@@ -76,7 +65,6 @@ public class Notes {
         result.put("id", id);
         result.put("url", url);
         result.put("text", text);
-        result.put("day", day);
         return result;
     }
 }
