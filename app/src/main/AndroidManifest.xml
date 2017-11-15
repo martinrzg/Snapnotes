@@ -23,17 +23,17 @@
 
         <activity
             android:name=".activity.SplashActivity">
-            <!-- TODO removed android:theme="@style/SplashTheme" -->
-        </activity>
-
-        <activity
-            android:name=".activity.MainActivity"
-            android:theme="@style/FullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.MainActivity"
+            android:theme="@style/FullScreenTheme">
+
         </activity>
         <activity android:name=".activity.LogInActivity" />
         <activity
