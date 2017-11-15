@@ -1,9 +1,9 @@
 package com.example.martinruiz.snapnotes.utils;
 
+import android.content.Context;
 import android.net.Uri;
 import android.widget.Toast;
 
-import com.example.martinruiz.snapnotes.DatabaseCRUD;
 import com.example.martinruiz.snapnotes.DatabaseModel.Notes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -28,15 +28,17 @@ public class CloudStorageManager {
     private static StorageReference imagesRef ;
 
 
-    public static void uploadImage(String path, String folder){
+    public static void uploadImage(String path, String folder, Context context){
+
         try{
             Uri file = Uri.fromFile(new File(path));
+            String textRecognize = ImageOCR.imageToText(context,path);
             imagesRef = storageReference.child(firebaseUserID+"/images/"+folder+"/"+file.getLastPathSegment());
             UploadTask uploadTask = imagesRef.putFile(file);
             uploadTask
                     .addOnSuccessListener(taskSnapshot -> {
                         String id = file.getLastPathSegment().substring(0, (file.getLastPathSegment().length() - 4));
-                        Notes note = new Notes(id , taskSnapshot.getDownloadUrl().toString(), "tu mama");
+                        Notes note = new Notes(id , taskSnapshot.getDownloadUrl().toString(), textRecognize);
                         DatabaseCRUD.writeNewNote( databaseReference, note, folder );
                     })
                     .addOnFailureListener(e -> System.out.println("-------------------------------------->FAILED"));
@@ -44,11 +46,5 @@ public class CloudStorageManager {
             System.out.println(e);
         }
     }
-
-
-
-
-
-
 
 }
