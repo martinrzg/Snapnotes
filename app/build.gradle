@@ -52,14 +52,15 @@ dependencies {
         exclude group: 'org.apache.httpcomponents'
     }
 
+    // FirebaseUI for Firebase Auth
 
     compile 'com.facebook.android:facebook-login:4.27.0'
     compile 'com.firebaseui:firebase-ui-database:3.1.0'
     compile 'com.github.florent37:camerafragment:1.0.7'
     compile 'com.google.android.gms:play-services-vision:11.6.0'
 
-
-
+    // FirebaseUI for Firebase Auth
+    
 }
 
 
