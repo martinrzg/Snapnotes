@@ -76,7 +76,7 @@ public class DatabaseCRUD {
 
         if (boardContent.getNotes() == null) {
 
-            Map<String, Object> notes = new HashMap();                            //If the notes is empty initialize the HashMap for the notes.
+            Map<String, Notes> notes = new HashMap();                            //If the notes is empty initialize the HashMap for the notes.
             notes.put(note.id, note);                                                 //Add th new note to the HashMap
             boardContent.setNotes(notes);                                         //Add the notes HashMap to the boardContent
             mDatabase.child("boards").child(boardId).setValue(boardContent);      //Update the data of the database
