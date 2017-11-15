@@ -38,15 +38,21 @@ public class CalendarCreatorActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Course course = new Course("Nueva materia en esta semana carnal", Day.MONDAY,8, 30,10,15);
+        Course course1 = new Course("Historia de México", Day.TUESDAY, 15,15,14,0);
         Course course2 = new Course("Otra materia carnal", Day.WEDNESDAY,12, 05,15,45);
+        Course course3 = new Course("Valer verga", Day.FRIDAY,12, 05,15,45);
 
         addNewCourse(course);
+        addNewCourse(course1);
         addNewCourse(course2);
+        addNewCourse(course3);
+
     }
 
     private void addNewCourse(Course course){
 
         ConstraintLayout weekDay;
+
         switch (course.getDay()){
             case MONDAY: weekDay = mondayCol; break;
             case TUESDAY: weekDay = tuesdayCol; break;

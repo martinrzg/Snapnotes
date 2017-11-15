@@ -19,7 +19,6 @@
             <android.support.constraint.ConstraintLayout
                 android:layout_width="64dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -271,15 +270,15 @@
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/monday_column"
                         android:layout_width="100dp"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:background="@drawable/dotted_col_odd">
 
                         <TextView
                             android:id="@+id/temp2"
                             android:layout_width="0dp"
                             android:layout_height="32dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="2dp"
-                            android:layout_marginTop="8dp"
                             android:background="@color/odd_hour"
                             android:elevation="2dp"
                             android:gravity="center"
@@ -295,15 +294,15 @@
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/tuesday_column"
                         android:layout_width="100dp"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:background="@drawable/dotted_col_even">
 
                         <TextView
                             android:id="@+id/temp"
                             android:layout_width="0dp"
                             android:layout_height="32dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="2dp"
-                            android:layout_marginTop="8dp"
                             android:background="@color/even_hour"
                             android:elevation="2dp"
                             android:gravity="center"
@@ -318,15 +317,15 @@
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/wednesday_column"
                         android:layout_width="100dp"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:background="@drawable/dotted_col_odd">
 
                         <TextView
                             android:id="@+id/temp3"
                             android:layout_width="0dp"
                             android:layout_height="32dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="2dp"
-                            android:layout_marginTop="8dp"
                             android:background="@color/odd_hour"
                             android:elevation="2dp"
                             android:gravity="center"
@@ -341,15 +340,15 @@
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/thursday_column"
                         android:layout_width="100dp"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:background="@drawable/dotted_col_even">
 
                         <TextView
                             android:id="@+id/temp4"
                             android:layout_width="0dp"
                             android:layout_height="32dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="2dp"
-                            android:layout_marginTop="8dp"
                             android:background="@color/even_hour"
                             android:elevation="2dp"
                             android:gravity="center"
@@ -364,15 +363,15 @@
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/friday_column"
                         android:layout_width="100dp"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:background="@drawable/dotted_col_odd">
 
                         <TextView
                             android:id="@+id/temp5"
                             android:layout_width="0dp"
                             android:layout_height="32dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="2dp"
-                            android:layout_marginTop="8dp"
                             android:background="@color/odd_hour"
                             android:elevation="2dp"
                             android:gravity="center"
