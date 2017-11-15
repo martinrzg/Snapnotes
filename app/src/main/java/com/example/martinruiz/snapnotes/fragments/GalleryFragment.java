@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.martinruiz.snapnotes.DatabaseCRUD;
+import com.example.martinruiz.snapnotes.utils.DatabaseCRUD;
 import com.example.martinruiz.snapnotes.DatabaseModel.BoardContent;
 import com.example.martinruiz.snapnotes.DatabaseModel.Notes;
 import com.example.martinruiz.snapnotes.R;
@@ -26,7 +25,6 @@ import com.google.firebase.database.Query;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.

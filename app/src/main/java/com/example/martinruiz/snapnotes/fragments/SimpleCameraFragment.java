@@ -32,7 +32,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
-import static com.example.martinruiz.snapnotes.DatabaseCRUD.CALENDAR;
+import static com.example.martinruiz.snapnotes.utils.DatabaseCRUD.CALENDAR;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -150,8 +150,6 @@ public class SimpleCameraFragment extends BaseAnncaFragment{
                     String filePath = data.getStringExtra("file_path_arg");
                     getBoardHour(FirebaseDatabase.getInstance().getReference().child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 , filePath);
-
-
                 }
              default:
                  super.onActivityResult(requestCode, resultCode, data);
@@ -239,7 +237,7 @@ public class SimpleCameraFragment extends BaseAnncaFragment{
                                 }
                             }
                             //TODO: Send name to the
-                            CloudStorageManager.uploadImage(filePath, name);
+                            CloudStorageManager.uploadImage(filePath, name, cameraFragment.getContext());
                         }
                     }
 
