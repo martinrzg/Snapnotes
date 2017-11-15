@@ -1,9 +1,13 @@
 package com.example.martinruiz.snapnotes.activity;
 
 import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.FragmentManager;
+import android.app.FragmentManagerNonConfig;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -14,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.martinruiz.snapnotes.R;
+import com.example.martinruiz.snapnotes.fragments.CourseDialogFragment;
 import com.example.martinruiz.snapnotes.util.DisplayTool;
 import com.example.martinruiz.snapnotes.views.calendar.Course;
 import com.example.martinruiz.snapnotes.views.calendar.Day;
@@ -24,7 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CalendarCreatorActivity extends AppCompatActivity {
+public class CalendarCreatorActivity extends FragmentActivity implements CourseDialogFragment.DialogListener{
 
     @BindView(R.id.monday_column) ConstraintLayout mondayCol;
     @BindView(R.id.tuesday_column) ConstraintLayout tuesdayCol;
@@ -53,7 +58,8 @@ public class CalendarCreatorActivity extends AppCompatActivity {
 
     @OnClick(R.id.monday_column)
     public void addInMonday(){
-
+        CourseDialogFragment course = new CourseDialogFragment();
+        course.show(getFragmentManager(), "1");
     }
 
     private void addNewCourse(Course course){
@@ -100,4 +106,17 @@ public class CalendarCreatorActivity extends AppCompatActivity {
         return cell;
     }
 
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+
+        View v = dialog.getView();
+
+        //TextView title = v.findViewById(R.id.dialog_course_title);
+
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        dialog.getDialog().cancel();
+    }
 }
