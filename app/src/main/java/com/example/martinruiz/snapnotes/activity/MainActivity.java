@@ -13,7 +13,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.martinruiz.snapnotes.R;
+import com.example.martinruiz.snapnotes.adapters.DepthPageTransformer;
 import com.example.martinruiz.snapnotes.adapters.MainPageAdapter;
+import com.example.martinruiz.snapnotes.fragments.SimpleCameraFragment;
 import com.example.martinruiz.snapnotes.views.SnapTabs;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_CAMERA_PERMISSION = 200;
 
-    @BindView(R.id.view_background) View backgroundView;
     @BindView(R.id.ma_view_pager) ViewPager viewPager;
     @BindView(R.id.snapTabs) SnapTabs snapTabs;
     private MainPageAdapter adapter;
@@ -38,12 +39,15 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new MainPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
+        viewPager.setPageTransformer(true, new DepthPageTransformer());
         snapTabs.setViewPager(viewPager);
 
         checkPermission();
-
-
         viewPager.setCurrentItem(1);
+
+
+
+
 
         final int blue   = ContextCompat.getColor(this, R.color.light_blue);
         final int purple = ContextCompat.getColor(this, R.color.light_purple);
@@ -52,14 +56,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if (position == 0) {
-                    backgroundView.setBackgroundColor(blue);
-                    backgroundView.setAlpha(1 - positionOffset);
+
+                    SimpleCameraFragment.setBackground(blue,( 1 - positionOffset) );
+
+                    //backgroundView.setBackgroundColor(blue);
+
+                    //backgroundView.setAlpha(1 - positionOffset);
+
 
                     //textureView.setBackgroundColor(blue);
                     //textureView.setAlpha(1-positionOffset);
                 } else if (position == 1) {
-                    backgroundView.setBackgroundColor(purple);
-                    backgroundView.setAlpha(positionOffset);
+
+                    SimpleCameraFragment.setBackground(purple, positionOffset);
+                    //backgroundView.setBackgroundColor(purple);
+                    //backgroundView.setAlpha(positionOffset);
 
                     //textureView.setBackgroundColor(purple);
                     //textureView.setAlpha(positionOffset);

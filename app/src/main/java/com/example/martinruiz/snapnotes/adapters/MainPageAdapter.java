@@ -28,6 +28,7 @@ public class MainPageAdapter extends FragmentPagerAdapter {
             case 1:
                  //CameraFragment cameraFragment = new CameraFragment.newInstance(new Configuration.Builder().setCamera(Configuration.CAMERA_FACE_REAR).build());
                 //return cameraFragment;
+                //SimpleCameraFragment cameraFragment =
                 return SimpleCameraFragment.create();
 
                 //return CustomCameraFragment.create();
