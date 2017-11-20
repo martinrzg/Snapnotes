@@ -60,7 +60,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-vision:11.6.0'
 
     // FirebaseUI for Firebase Auth
-    
+
 }
 
 
