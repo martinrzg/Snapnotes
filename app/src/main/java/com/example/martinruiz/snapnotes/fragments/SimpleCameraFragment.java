@@ -3,9 +3,14 @@ package com.example.martinruiz.snapnotes.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.martinruiz.snapnotes.DatabaseModel.Courses;
 import com.example.martinruiz.snapnotes.DatabaseModel.Days;
@@ -31,6 +36,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static android.app.Activity.RESULT_OK;
 import static com.example.martinruiz.snapnotes.utils.DatabaseCRUD.CALENDAR;
 
@@ -39,6 +47,8 @@ import static com.example.martinruiz.snapnotes.utils.DatabaseCRUD.CALENDAR;
  */
 public class SimpleCameraFragment extends BaseAnncaFragment{
     private final String TAG = "CameraFragment";
+    public static View backgroundView;
+    public static View lineView;
 
     private StorageReference storageReference ;
 
@@ -63,10 +73,30 @@ public class SimpleCameraFragment extends BaseAnncaFragment{
 
 
        // cameraFragment = SimpleCameraFragment.newInstance(builder.build());
-        cameraFragment = (SimpleCameraFragment) BaseAnncaFragment.newInstance(new SimpleCameraFragment(), builder.build());
-        init();
 
+        cameraFragment = (SimpleCameraFragment) BaseAnncaFragment.newInstance(new SimpleCameraFragment(), builder.build());
+
+        init();
         return cameraFragment;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        System.out.println("ON CREATE VIEW");
+        View view = inflater.inflate(R.layout.simple_camera_layout , container, false);
+        backgroundView = view.findViewById(R.id.view_background);
+        lineView = view.findViewById(R.id.viewLine);
+
+        //TODO Now we can set a tag...
+        return view;
+        //return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    public static void setBackground(int color, float positionOffset){
+        backgroundView.setBackgroundColor(color);
+        backgroundView.setAlpha( positionOffset);
+        lineView.setAlpha(.25f - positionOffset*.5f);
     }
 
     public static void init(){
@@ -160,7 +190,7 @@ public class SimpleCameraFragment extends BaseAnncaFragment{
         // Create an image file name
         @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        System.out.println("----------------------------->>>>>>>>>>>>>>>>>>>>>"+cameraFragment.getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath());
+        //System.out.println("----------------------------->>>>>>>>>>>>>>>>>>>>>"+cameraFragment.getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath());
         return imageFileName;
     }
 
