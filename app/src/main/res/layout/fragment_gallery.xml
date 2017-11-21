@@ -54,8 +54,7 @@
             android:layout_gravity="center_vertical"
             android:background="@null"
             android:src="@drawable/ic_arrow_right"
-            android:visibility="visible"
-            />
+            android:visibility="gone" />
 
     </LinearLayout>
 

@@ -2,6 +2,7 @@ package com.example.martinruiz.snapnotes.fragments;
 
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -272,14 +273,20 @@ public class GalleryFragment extends Fragment {
                             //Log.e(TAG, "Days is unexpectedly null");
                         } else {
 
-                            // Write new Board
-                            for (String key: boardContent.getNotes().keySet()){
-                                Notes notes = boardContent.getNotes().get(key);
-                                boardNotes.add(notes);
-                                Log.d("Note name",notes.getId());
+                            if(boardContent.getNotes() != null) {
+
+
+                                //Get data from the notes
+                                for (String key : boardContent.getNotes().keySet()) {
+                                    Notes notes = boardContent.getNotes().get(key);
+                                    boardNotes.add(notes);
+                                    Log.d("Note name", notes.getId());
+
+                                }
+                                //TODO: add the gridview here
+                            }else{
 
                             }
-                            //TODO: add the gridview here
                         }
                     }
 
