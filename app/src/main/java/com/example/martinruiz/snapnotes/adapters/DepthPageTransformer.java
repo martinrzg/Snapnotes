@@ -50,7 +50,7 @@ public class DepthPageTransformer implements ViewPager.PageTransformer {
         }catch (Exception e){
             tagID  = 0;
         }
-        System.out.println(tagID);
+        //System.out.println(tagID);
 
         if(tagID == 0){
             float currentTranslation = - position * view.getWidth();
