@@ -75,7 +75,6 @@ public class CalendarActivity extends Activity
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
     static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
 
-    private static final String BUTTON_TEXT = "Call Google Calendar API";
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = { CalendarScopes.CALENDAR_READONLY };
 
@@ -105,6 +104,11 @@ public class CalendarActivity extends Activity
         mCredential = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff());
+
+        if(getIntent().getBooleanExtra("Update", false)){
+            getCalendarsFromApi();
+
+        }
     }
 
     @OnClick(R.id.bCalendarSync)
@@ -412,6 +416,7 @@ public class CalendarActivity extends Activity
                 eventStrings.add(
                         String.format("%s (%s)", event.getSummary(), format.format(start)+" a "+format.format(end)+" el "+day.format(start)));
             }
+            DatabaseCRUD.writeNewBoard(mDatabase.child(mAuth.getUid()),new BoardContent("Others"));
             return eventStrings;
         }
 

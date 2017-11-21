@@ -29,7 +29,6 @@ public class DatabaseActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
 //        DatabaseCRUD.writeNewNote(mDatabase.child(mAuth.getUid()),new Notes("id","wwww","ffasdfwverfd","34fsaf"), "Graficas");
         //DatabaseCRUD.writeNewBoard(mDatabase.child(mAuth.getUid()),new BoardContent("Base de datos", new HashMap<String, Object>()));
