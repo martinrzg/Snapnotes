@@ -264,6 +264,8 @@ public class SimpleCameraFragment extends BaseAnncaFragment{
                                 if(currentHour.before(endDate) && currentHour.after(startDate)){
                                     Log.d("hora","si hay: "+courses.getName());
                                     name = courses.getName();
+                                }else{
+                                    name = "Others";
                                 }
                             }
                             //TODO: Send name to the
