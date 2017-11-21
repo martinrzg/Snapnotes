@@ -26,6 +26,6 @@
     <color name="odd_day">#81d4fa</color>
     <color name="even_day">#ffee58</color>
 
-    <color name="col_odd_light">#6481d4fa</color>
+    <color name="col_odd_light">#CEECED</color>
     <color name="col_even_light">#fff8bc</color>
 </resources>

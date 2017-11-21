@@ -10,9 +10,12 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.martinruiz.snapnotes.R;
+import com.example.martinruiz.snapnotes.views.calendar.Course;
 
 /**
  * Created by isaac on 11/15/17.
@@ -25,10 +28,29 @@ public class CourseDialogFragment extends DialogFragment{
         public void onDialogNegativeClick(DialogFragment dialog);
     }
 
-    DialogListener mListener;
+    private DialogListener mListener;
 
-    View dialogView;
+    private View dialogView;
 
+    private NumberPicker startHour;
+    private NumberPicker startMinute;
+    private NumberPicker endHour;
+    private NumberPicker endMinute;
+
+    private TextView courseTitle;
+    private Spinner courseDay;
+
+    private Course course;
+
+    public static CourseDialogFragment newInstance(Course course){
+        CourseDialogFragment dialog = new CourseDialogFragment();
+        Bundle args = new Bundle();
+
+        args.putSerializable("course", course);
+        dialog.setArguments(args);
+
+        return dialog;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -39,6 +61,7 @@ public class CourseDialogFragment extends DialogFragment{
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         dialogView = inflater.inflate(R.layout.add_course_dialog, null);
+        setViewConfiguration(dialogView);
 
         // Inflate and set the layout for the dialog
         builder.setView(dialogView)
@@ -57,6 +80,17 @@ public class CourseDialogFragment extends DialogFragment{
                 });
 
         return builder.create();
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        try {
+            course = (Course) getArguments().getSerializable("course");
+        } catch (NullPointerException npe) {
+            course = null;
+        }
     }
 
     @Override
@@ -81,4 +115,39 @@ public class CourseDialogFragment extends DialogFragment{
         }
     }
 
+    public void setViewConfiguration(View v){
+        startHour = v.findViewById(R.id.dialog_start_hour);
+        startMinute = v.findViewById(R.id.dialog_start_minute);
+        endHour = v.findViewById(R.id.dialog_end_hour);
+        endMinute = v.findViewById(R.id.dialog_end_minute);
+        courseTitle = v.findViewById(R.id.dialog_course_title);
+        courseDay = v.findViewById(R.id.dialog_weekday);
+
+        startHour.setMinValue(0);
+        startHour.setMaxValue(23);
+        startMinute.setMinValue(0);
+        startMinute.setMaxValue(59);
+
+        endHour.setMinValue(0);
+        endHour.setMaxValue(23);
+        endMinute.setMinValue(0);
+        endMinute.setMaxValue(59);
+
+        if(course != null){
+            startHour.setValue(course.getStartHour());
+            startMinute.setValue(course.getStartMinute());
+            endHour.setValue(course.getEndHour());
+            endMinute.setValue(course.getEndMinute());
+            courseTitle.setText(course.getName());
+            courseDay.setSelection(course.getDay().getPosition());
+        }
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 }

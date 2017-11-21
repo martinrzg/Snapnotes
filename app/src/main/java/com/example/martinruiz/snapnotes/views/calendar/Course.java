@@ -1,12 +1,13 @@
 package com.example.martinruiz.snapnotes.views.calendar;
 
+import java.io.Serializable;
+
 /**
  * Created by isaac on 11/14/17.
  */
 
-public class Course {
+public class Course implements Serializable {
 
-    private static int INITIAL_HOUR = 6;
 
     private String name;
     private Day day;
@@ -28,7 +29,7 @@ public class Course {
         float start = startHour + (float)startMinute/60;
         int initial = 42;
         int baseDPperHour = 50;
-        return initial + (int)((start - INITIAL_HOUR) * baseDPperHour);
+        return initial + (int) (start * baseDPperHour);
     }
 
     public int getCellHeight(){

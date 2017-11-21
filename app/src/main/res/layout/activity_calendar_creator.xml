@@ -17,242 +17,12 @@
             android:layout_height="wrap_content">
 
             <android.support.constraint.ConstraintLayout
+                android:id="@+id/col_hours"
                 android:layout_width="64dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/tv1"
-                    android:layout_width="0dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="36dp"
-                    android:background="@color/odd_hour"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="6:00"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv2"
-                    android:layout_width="0dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/even_hour"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="7:00"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv1" />
-
-                <TextView
-                    android:id="@+id/tv3"
-                    android:layout_width="0dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/odd_hour"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="8:00"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv2" />
-
-                <TextView
-                    android:id="@+id/tv4"
-                    android:layout_width="0dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/even_hour"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="9:00"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv3" />
-
-                <TextView
-                    android:id="@+id/tv5"
-                    android:layout_width="64dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/odd_hour"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="10:00"
-                    android:textAlignment="center"
-                    app:layout_constraintTop_toBottomOf="@+id/tv4" />
-
-                <TextView
-                    android:id="@+id/tv6"
-                    android:layout_width="0dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/even_hour"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="11:00"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv5" />
-
-                <TextView
-                    android:id="@+id/tv7"
-                    android:layout_width="64dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/odd_hour"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="12:00"
-                    android:textAlignment="center"
-                    app:layout_constraintTop_toBottomOf="@+id/tv6" />
-
-                <TextView
-                    android:id="@+id/tv8"
-                    android:layout_width="0dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/even_hour"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="13:00"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv7" />
-
-                <TextView
-                    android:id="@+id/tv19"
-                    android:layout_width="0dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/even_hour"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="21:00"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv18" />
-
-                <TextView
-                    android:id="@+id/tv18"
-                    android:layout_width="64dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/odd_hour"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="20:00"
-                    android:textAlignment="center"
-                    app:layout_constraintTop_toBottomOf="@+id/tv17"
-                    tools:layout_editor_absoluteX="16dp" />
-
-                <TextView
-                    android:id="@+id/tv15"
-                    android:layout_width="0dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/even_hour"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="17:00"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv14" />
-
-                <TextView
-                    android:id="@+id/tv17"
-                    android:layout_width="0dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/even_hour"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="19:00"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv16" />
-
-                <TextView
-                    android:id="@+id/tv12"
-                    android:layout_width="0dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/odd_hour"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="14:00"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv8" />
-
-                <TextView
-                    android:id="@+id/tv14"
-                    android:layout_width="0dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/odd_hour"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="16:00"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv13" />
-
-                <TextView
-                    android:id="@+id/tv16"
-                    android:layout_width="64dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/odd_hour"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="18:00"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv15" />
-
-                <TextView
-                    android:id="@+id/tv13"
-                    android:layout_width="0dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/even_hour"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="15:00"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv12" />
 
             </android.support.constraint.ConstraintLayout>
 
@@ -264,7 +34,7 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="850dp"
+                    android:layout_height="1250dp"
                     android:orientation="horizontal">
 
                     <android.support.constraint.ConstraintLayout
@@ -273,10 +43,10 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="4dp"
-                        android:background="@drawable/dotted_col_odd">
+                        android:background="@color/col_odd_light">
 
                         <TextView
-                            android:id="@+id/temp2"
+                            android:id="@+id/temp1"
                             android:layout_width="0dp"
                             android:layout_height="32dp"
                             android:background="@color/odd_hour"
@@ -289,6 +59,21 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
+                        <LinearLayout
+                            android:id="@+id/mon_col_add"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/dotted_col_odd"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/temp1"></LinearLayout>
+
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
@@ -297,10 +82,10 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="4dp"
-                        android:background="@drawable/dotted_col_even">
+                        android:background="@color/col_even_light">
 
                         <TextView
-                            android:id="@+id/temp"
+                            android:id="@+id/temp2"
                             android:layout_width="0dp"
                             android:layout_height="32dp"
                             android:background="@color/even_hour"
@@ -312,6 +97,22 @@
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/tue_col_add"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/dotted_col_even"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/temp2"></LinearLayout>
+
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
@@ -320,7 +121,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="4dp"
-                        android:background="@drawable/dotted_col_odd">
+                        android:background="@color/col_odd_light">
 
                         <TextView
                             android:id="@+id/temp3"
@@ -335,6 +136,22 @@
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/wed_col_add"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/dotted_col_odd"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/temp3"></LinearLayout>
+
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
@@ -343,7 +160,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="4dp"
-                        android:background="@drawable/dotted_col_even">
+                        android:background="@color/col_even_light">
 
                         <TextView
                             android:id="@+id/temp4"
@@ -358,13 +175,29 @@
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/thu_col_add"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/dotted_col_even"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/temp4" />
+
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/friday_column"
                         android:layout_width="100dp"
-                        android:layout_height="643dp"
-                        android:background="@drawable/dotted_col_odd"
+                        android:layout_height="match_parent"
+                        android:background="@color/col_odd_light"
                         tools:layout_editor_absoluteX="0dp"
                         tools:layout_editor_absoluteY="8dp">
 
@@ -381,6 +214,99 @@
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/fri_col_add"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/dotted_col_odd"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/temp5"></LinearLayout>
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/saturday_column"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:background="@color/col_even_light">
+
+                        <TextView
+                            android:id="@+id/temp6"
+                            android:layout_width="0dp"
+                            android:layout_height="32dp"
+                            android:background="@color/even_hour"
+                            android:elevation="2dp"
+                            android:gravity="center"
+                            android:text="Sat"
+                            android:textAlignment="center"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/sat_col_add"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/dotted_col_even"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/temp6"></LinearLayout>
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/sunday_column"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/col_odd_light"
+                        tools:layout_editor_absoluteX="4dp">
+
+                        <TextView
+                            android:id="@+id/temp7"
+                            android:layout_width="0dp"
+                            android:layout_height="32dp"
+                            android:background="@color/odd_hour"
+                            android:elevation="2dp"
+                            android:gravity="center"
+                            android:text="Sun"
+                            android:textAlignment="center"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/sun_col_add"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/dotted_col_odd"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/temp7"></LinearLayout>
+
                     </android.support.constraint.ConstraintLayout>
 
                 </LinearLayout>
