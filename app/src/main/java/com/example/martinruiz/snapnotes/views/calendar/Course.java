@@ -108,4 +108,5 @@ public class Course implements Serializable {
     public void setEndMinute(int endMinute) {
         this.endMinute = endMinute;
     }
+
 }

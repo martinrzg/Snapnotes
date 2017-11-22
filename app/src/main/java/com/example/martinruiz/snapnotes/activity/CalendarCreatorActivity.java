@@ -191,7 +191,7 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
 
         CourseDialogFragment d = (CourseDialogFragment) dialog;
 
-        if (d.getCourse() != null && selectedView != null){
+        if (d.getCourse() != null && selectedView != null && !d.isNew()){
             ConstraintLayout root = (ConstraintLayout) selectedView.getParent();
             root.removeView(selectedView);
             selectedView = null;
@@ -227,7 +227,7 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
 
         CourseDialogFragment d = (CourseDialogFragment) dialog;
 
-        if (d.getCourse() != null && selectedView != null){
+        if (d.getCourse() != null && selectedView != null && !d.isNew()){
             ConstraintLayout root = (ConstraintLayout) selectedView.getParent();
             root.removeView(selectedView);
             selectedView = null;

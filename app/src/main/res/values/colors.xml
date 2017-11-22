@@ -28,4 +28,8 @@
 
     <color name="col_odd_light">#CEECED</color>
     <color name="col_even_light">#fff8bc</color>
+
+    <color name="course_dialog">#009688</color>
+    <color name="negative_action">#F44336</color>
+    <color name="positive_action">#8BC34A</color>
 </resources>

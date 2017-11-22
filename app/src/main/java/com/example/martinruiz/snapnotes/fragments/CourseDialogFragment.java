@@ -65,7 +65,6 @@ public class CourseDialogFragment extends DialogFragment{
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         // Get the layout inflater
@@ -96,7 +95,22 @@ public class CourseDialogFragment extends DialogFragment{
             }
         });
 
-        return builder.create();
+        AlertDialog dialog = builder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                        .setTextColor(getResources()
+                                .getColor(R.color.negative_action));
+
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                        .setTextColor(getResources()
+                                .getColor(R.color.positive_action));;
+            }
+        });
+
+        return dialog;
     }
 
 
@@ -155,6 +169,7 @@ public class CourseDialogFragment extends DialogFragment{
 
             @Override
             public void onClick(View view) {
+
                 TimePickerDialog.OnTimeSetListener listener = new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int h, int m) {
@@ -164,15 +179,23 @@ public class CourseDialogFragment extends DialogFragment{
                     }
                 };
 
-               TimePickerDialog time = new TimePickerDialog(
+                TimePickerDialog time = new TimePickerDialog(
                    CourseDialogFragment.this.getActivity(),
+                   R.style.TimePickerTheme,
                    listener,
                    course.getStartHour(),
                    course.getStartMinute(),
                    true
-               );
+                );
 
-               time.show();
+                time.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialogInterface) {
+
+                    }
+                });
+
+                time.show();
             }
         });
 
@@ -191,6 +214,7 @@ public class CourseDialogFragment extends DialogFragment{
 
                 TimePickerDialog time = new TimePickerDialog(
                         CourseDialogFragment.this.getActivity(),
+                        R.style.TimePickerTheme,
                         listener,
                         course.getEndHour(),
                         course.getEndMinute(),
@@ -223,5 +247,8 @@ public class CourseDialogFragment extends DialogFragment{
         this.delete = delete;
     }
 
+    public boolean isNew(){
+        return isNew;
+    }
 
 }
