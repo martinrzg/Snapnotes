@@ -59,9 +59,9 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
         constructHoursColumn();
 
 
-        Course course = new Course("Nueva materia para esta semana hola", Day.MONDAY,8, 30,10,15);
-        Course course1 = new Course("Historia de México", Day.MONDAY, 15,15,14,0);
-        Course course2 = new Course("Otra materia carnal", Day.MONDAY,1, 0,2,0);
+        Course course = new Course("Nueva materia para esta semana hola", Day.MONDAY, "8:30", "10:15");
+        Course course1 = new Course("Historia de México", Day.MONDAY, "15:15", "16:00");
+        Course course2 = new Course("Otra materia carnal", Day.MONDAY, "01:00", "02:00");
 
         addNewCourse(course);
         addNewCourse(course1);
@@ -74,10 +74,8 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
         Course course = new Course(
                 "",
                 day,
-                0,
-                0,
-                0,
-                0
+                "00:00",
+                "00:00"
                 );
         CourseDialogFragment dialog = CourseDialogFragment.newInstance(course, true);
         dialog.show(getFragmentManager(), "1");
@@ -139,12 +137,13 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
     private void addNewCourse(Course course){
 
         ConstraintLayout weekCol = getColumn(course);
+        int gap = DisplayTool.convertDpToPixel(12,this);
 
         int width = DisplayTool.convertDpToPixel(100, this);
         int height = DisplayTool.convertDpToPixel(course.getCellHeight(), this);
         int margin =  DisplayTool.convertDpToPixel(course.getMarginInDp(),this);
 
-        View courseCell = createCell(width, height, R.layout.calendar_cell);
+        View courseCell = createCell(width-gap, height, R.layout.calendar_cell);
 
         courseCell.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,6 +166,7 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
 
         weekCol.addView(courseCell);
         courseCell.setTranslationY(margin);
+        courseCell.setTranslationX(gap/2);
     }
 
 
@@ -174,12 +174,14 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
         // Cell width - 100
         // Cell height - 50
 
+
         // Create Layout from xml file
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayoutCompat cell = (LinearLayoutCompat) inflater.inflate(layoutId, null);
 
         // Set cell dimensions
         cell.setLayoutParams(new LinearLayout.LayoutParams(width,height));
+
 
         return cell;
     }
@@ -203,10 +205,8 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
         View v = dialog.getView();
 
         TextView title = v.findViewById(R.id.dialog_course_title);
-        NumberPicker startHour = v.findViewById(R.id.dialog_start_hour);
-        NumberPicker startMinute = v.findViewById(R.id.dialog_start_minute);
-        NumberPicker endHour = v.findViewById(R.id.dialog_end_hour);
-        NumberPicker endMinute = v.findViewById(R.id.dialog_end_minute);
+        TextView start = v.findViewById(R.id.dialog_start_time);
+        TextView end = v.findViewById(R.id.dialog_end_time);
         Spinner weekDay = v.findViewById(R.id.dialog_weekday);
 
         String sDay = (String) weekDay.getSelectedItem();
@@ -215,10 +215,8 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
         Course course = new Course(
                 title.getText().toString(),
                 day,
-                startHour.getValue(),
-                startMinute.getValue(),
-                endHour.getValue(),
-                endMinute.getValue()
+                start.getText().toString(),
+                end.getText().toString()
         );
 
         return course;
@@ -252,15 +250,16 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
     public void constructHoursColumn(){
         int starHour = 0;
         int width = hoursColumn.getMaxWidth();
-        int height = DisplayTool.convertDpToPixel(46, this);
+        int height = DisplayTool.convertDpToPixel(50, this);
         int base = DisplayTool.convertDpToPixel(50, this);
-        int startMargin = DisplayTool.convertDpToPixel(36, this);
+        int startMargin = DisplayTool.convertDpToPixel(32, this);
 
         for (int i=0; i< 24; i++){
             int hour = (starHour + i) % 24 ;
             int transT = startMargin + base * i;
             int color = hour % 2 == 1 ? R.color.odd_day : R.color.even_day;
-            String hourTitle = ""+hour+":00";
+            String h = hour/10 == 0 ? "0" : "";
+            String hourTitle = h+""+hour+":00";
 
             View hourCell = createCell(width, height, R.layout.calendar_hour_cell);
             hourCell.setBackgroundColor(getResources().getColor(color));

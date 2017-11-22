@@ -20,45 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <NumberPicker
-        android:id="@+id/dialog_start_hour"
-        android:layout_width="45dp"
-        android:layout_height="102dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.11"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <NumberPicker
-        android:id="@+id/dialog_end_hour"
-        android:layout_width="45dp"
-        android:layout_height="102dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/dialog_start_minute"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <NumberPicker
-        android:id="@+id/dialog_end_minute"
-        android:layout_width="45dp"
-        android:layout_height="102dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/dialog_end_hour"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <NumberPicker
-        android:id="@+id/dialog_start_minute"
-        android:layout_width="45dp"
-        android:layout_height="102dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/dialog_start_hour"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
     <Spinner
         android:id="@+id/dialog_weekday"
         android:layout_width="220dp"
@@ -75,13 +36,10 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="24dp"
         android:text="Start Time"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.146"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_weekday" />
 
@@ -89,11 +47,11 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
+        android:layout_marginEnd="60dp"
         android:layout_marginTop="24dp"
         android:text="End Time"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_weekday" />
 
     <Button
@@ -102,13 +60,37 @@
         android:layout_height="35dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:background="@android:color/holo_red_dark"
         android:text="Delete"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_end_hour" />
+        app:layout_constraintTop_toBottomOf="@+id/dialog_start_time" />
+
+    <TextView
+        android:id="@+id/dialog_end_time"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginTop="24dp"
+        android:text="00:00"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/dialog_start_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="24dp"
+        android:text="00:00"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </android.support.constraint.ConstraintLayout>

@@ -18,18 +18,23 @@ public class Course implements Serializable {
     private int endHour;
     private int endMinute;
 
-    public Course(String name, Day day, int startHour, int startMinute, int endHour, int endMinute) {
+    public Course(String name, Day day, String start, String end) {
+
+        String s[] = start.split(":");
+        String e[] = end.split(":");
+
+
         this.name = name;
         this.day = day;
-        this.startHour = startHour;
-        this.startMinute = startMinute;
-        this.endHour = endHour;
-        this.endMinute = endMinute;
+        this.startHour = Integer.parseInt(s[0]);
+        this.startMinute = Integer.parseInt(s[1]);
+        this.endHour = Integer.parseInt(e[0]);
+        this.endMinute = Integer.parseInt(e[1]);
     }
 
     public int getMarginInDp(){
         float start = startHour + (float)startMinute/60;
-        int initial = 42;
+        int initial = 32;
         int baseDPperHour = 50;
         return initial + (int) (start * baseDPperHour);
     }
@@ -40,6 +45,20 @@ public class Course implements Serializable {
         int baseDPperHour = 50;
         int height = (int) ((end - start) * baseDPperHour);
         return height;
+    }
+
+    public String get24hStartTime(){
+        String h = startHour/10 == 0 ? "0" : "";
+        String m = startMinute/10 == 0 ? "0" : "";
+
+        return h + startHour+":"+startMinute+m;
+    }
+
+    public String get24hEndTime(){
+        String h = endHour/10 == 0 ? "0" : "";
+        String m = endMinute/10 == 0 ? "0" : "";
+
+        return h + endHour+":"+endMinute+m;
     }
 
     public String getName() {

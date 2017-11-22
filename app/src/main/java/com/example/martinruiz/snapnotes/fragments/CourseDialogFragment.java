@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.example.martinruiz.snapnotes.R;
 import com.example.martinruiz.snapnotes.activity.CalendarCreatorActivity;
@@ -38,10 +41,8 @@ public class CourseDialogFragment extends DialogFragment{
 
     private View dialogView;
 
-    private NumberPicker startHour;
-    private NumberPicker startMinute;
-    private NumberPicker endHour;
-    private NumberPicker endMinute;
+    private TextView startTime;
+    private TextView endTime;
 
     private TextView courseTitle;
     private Spinner courseDay;
@@ -85,7 +86,6 @@ public class CourseDialogFragment extends DialogFragment{
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         mListener.onDialogNegativeClick(CourseDialogFragment.this);
-                        //CourseDialogFragment.this.getDialog().cancel();
                     }
                 });
 
@@ -135,35 +135,75 @@ public class CourseDialogFragment extends DialogFragment{
     }
 
     public void setViewConfiguration(View v){
-        startHour = v.findViewById(R.id.dialog_start_hour);
-        startMinute = v.findViewById(R.id.dialog_start_minute);
-        endHour = v.findViewById(R.id.dialog_end_hour);
-        endMinute = v.findViewById(R.id.dialog_end_minute);
+
+        startTime = v.findViewById(R.id.dialog_start_time);
+        endTime = v.findViewById(R.id.dialog_end_time);
         courseTitle = v.findViewById(R.id.dialog_course_title);
         courseDay = v.findViewById(R.id.dialog_weekday);
         delete = v.findViewById(R.id.dialog_delete);
 
-        startHour.setMinValue(0);
-        startHour.setMaxValue(23);
-        startMinute.setMinValue(0);
-        startMinute.setMaxValue(59);
-
-        endHour.setMinValue(0);
-        endHour.setMaxValue(23);
-        endMinute.setMinValue(0);
-        endMinute.setMaxValue(59);
-
         if(course != null) {
-            startHour.setValue(course.getStartHour());
-            startMinute.setValue(course.getStartMinute());
-            endHour.setValue(course.getEndHour());
-            endMinute.setValue(course.getEndMinute());
+
             courseTitle.setText(course.getName());
             courseDay.setSelection(course.getDay().getPosition());
+            startTime.setText(course.get24hStartTime());
+            endTime.setText(course.get24hEndTime());
         }
 
+
+        startTime.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                TimePickerDialog.OnTimeSetListener listener = new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int h, int m) {
+                        course.setStartHour(h);
+                        course.setStartMinute(m);
+                        startTime.setText(course.get24hStartTime());
+                    }
+                };
+
+               TimePickerDialog time = new TimePickerDialog(
+                   CourseDialogFragment.this.getActivity(),
+                   listener,
+                   course.getStartHour(),
+                   course.getStartMinute(),
+                   true
+               );
+
+               time.show();
+            }
+        });
+
+        endTime.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                TimePickerDialog.OnTimeSetListener listener = new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int h, int m) {
+                        course.setEndHour(h);
+                        course.setEndMinute(m);
+                        endTime.setText(course.get24hEndTime());
+                    }
+                };
+
+                TimePickerDialog time = new TimePickerDialog(
+                        CourseDialogFragment.this.getActivity(),
+                        listener,
+                        course.getEndHour(),
+                        course.getEndMinute(),
+                        true
+                );
+
+                time.show();
+            }
+        });
+
         if (isNew){
-            delete.setVisibility(View.INVISIBLE);
+            ConstraintLayout root = (ConstraintLayout) delete.getParent();
+            root.removeView(delete);
         }
     }
 

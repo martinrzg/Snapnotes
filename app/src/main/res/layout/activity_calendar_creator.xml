@@ -20,7 +20,6 @@
                 android:id="@+id/col_hours"
                 android:layout_width="64dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -29,20 +28,18 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="72dp"
+                android:layout_marginStart="64dp"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="1250dp"
+                    android:layout_height="1232dp"
                     android:orientation="horizontal">
 
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/monday_column"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
                         android:background="@color/col_odd_light">
 
                         <TextView
@@ -80,8 +77,6 @@
                         android:id="@+id/tuesday_column"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
                         android:background="@color/col_even_light">
 
                         <TextView
@@ -119,8 +114,6 @@
                         android:id="@+id/wednesday_column"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
                         android:background="@color/col_odd_light">
 
                         <TextView
@@ -158,8 +151,6 @@
                         android:id="@+id/thursday_column"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
                         android:background="@color/col_even_light">
 
                         <TextView
@@ -236,8 +227,6 @@
                         android:id="@+id/saturday_column"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
                         android:background="@color/col_even_light">
 
                         <TextView
