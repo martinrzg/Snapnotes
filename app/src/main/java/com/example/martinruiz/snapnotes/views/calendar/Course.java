@@ -1,5 +1,7 @@
 package com.example.martinruiz.snapnotes.views.calendar;
 
+import android.view.View;
+
 import java.io.Serializable;
 
 /**

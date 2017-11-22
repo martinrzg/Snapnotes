@@ -10,12 +10,17 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.martinruiz.snapnotes.R;
+import com.example.martinruiz.snapnotes.activity.CalendarCreatorActivity;
+import com.example.martinruiz.snapnotes.util.DisplayTool;
 import com.example.martinruiz.snapnotes.views.calendar.Course;
+
+import butterknife.OnClick;
 
 /**
  * Created by isaac on 11/15/17.
@@ -26,6 +31,7 @@ public class CourseDialogFragment extends DialogFragment{
     public interface DialogListener {
         public void onDialogPositiveClick(DialogFragment dialog);
         public void onDialogNegativeClick(DialogFragment dialog);
+        public void onDeleteClick(DialogFragment dialog);
     }
 
     private DialogListener mListener;
@@ -39,14 +45,18 @@ public class CourseDialogFragment extends DialogFragment{
 
     private TextView courseTitle;
     private Spinner courseDay;
+    private Button delete;
 
+    private boolean isNew;
     private Course course;
 
-    public static CourseDialogFragment newInstance(Course course){
+    public static CourseDialogFragment newInstance(Course course, boolean isNew){
         CourseDialogFragment dialog = new CourseDialogFragment();
         Bundle args = new Bundle();
 
         args.putSerializable("course", course);
+        args.putBoolean("isnew", isNew);
+
         dialog.setArguments(args);
 
         return dialog;
@@ -79,6 +89,13 @@ public class CourseDialogFragment extends DialogFragment{
                     }
                 });
 
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onDeleteClick(CourseDialogFragment.this);
+            }
+        });
+
         return builder.create();
     }
 
@@ -86,8 +103,10 @@ public class CourseDialogFragment extends DialogFragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         try {
             course = (Course) getArguments().getSerializable("course");
+            isNew = getArguments().getBoolean("isnew");
         } catch (NullPointerException npe) {
             course = null;
         }
@@ -122,6 +141,7 @@ public class CourseDialogFragment extends DialogFragment{
         endMinute = v.findViewById(R.id.dialog_end_minute);
         courseTitle = v.findViewById(R.id.dialog_course_title);
         courseDay = v.findViewById(R.id.dialog_weekday);
+        delete = v.findViewById(R.id.dialog_delete);
 
         startHour.setMinValue(0);
         startHour.setMaxValue(23);
@@ -133,13 +153,17 @@ public class CourseDialogFragment extends DialogFragment{
         endMinute.setMinValue(0);
         endMinute.setMaxValue(59);
 
-        if(course != null){
+        if(course != null) {
             startHour.setValue(course.getStartHour());
             startMinute.setValue(course.getStartMinute());
             endHour.setValue(course.getEndHour());
             endMinute.setValue(course.getEndMinute());
             courseTitle.setText(course.getName());
             courseDay.setSelection(course.getDay().getPosition());
+        }
+
+        if (isNew){
+            delete.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -150,4 +174,14 @@ public class CourseDialogFragment extends DialogFragment{
     public void setCourse(Course course) {
         this.course = course;
     }
+
+    public Button getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Button delete) {
+        this.delete = delete;
+    }
+
+
 }

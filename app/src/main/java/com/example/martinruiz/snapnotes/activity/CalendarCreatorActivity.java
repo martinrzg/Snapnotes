@@ -16,6 +16,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
@@ -78,7 +79,7 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
                 0,
                 0
                 );
-        CourseDialogFragment dialog = CourseDialogFragment.newInstance(course);
+        CourseDialogFragment dialog = CourseDialogFragment.newInstance(course, true);
         dialog.show(getFragmentManager(), "1");
     }
 
@@ -149,12 +150,10 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
             @Override
             public void onClick(View view) {
                 //Show Dialog to be edited
-                CourseDialogFragment dialog = CourseDialogFragment.newInstance(course);
+                CourseDialogFragment dialog = CourseDialogFragment.newInstance(course, false);
                 dialog.show(getFragmentManager(),"1");
 
                 selectedView = view;
-                //ConstraintLayout root = (ConstraintLayout) view.getParent();
-                //root.removeView(view);
             }
         });
 
@@ -235,9 +234,19 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
             root.removeView(selectedView);
             selectedView = null;
 
-            addNewCourse(getCourseFromDialog(dialog));
+            addNewCourse(d.getCourse());
         }
         dialog.getDialog().cancel();
+    }
+
+    @Override
+    public void onDeleteClick(DialogFragment dialog){
+        ConstraintLayout root = (ConstraintLayout) selectedView.getParent();
+
+        System.out.println("Root: "+root);
+
+        root.removeView(selectedView);
+        dialog.dismiss();
     }
 
     public void constructHoursColumn(){
