@@ -1,9 +1,12 @@
 package com.example.martinruiz.snapnotes.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,6 +66,8 @@ public class LogInActivity extends AppCompatActivity {
 
     Random random = new Random();
 
+    private boolean displayAlert = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,45 +76,61 @@ public class LogInActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         background.setAlpha(0.7f);
 
+        if(!isInternetConnection()) {
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("You need network connection to Login.");
+            builder1.setCancelable(true);
 
-        int i = random.nextInt(images.length );
-        Glide.with(this).load(images[i]).into(background);
-
-        //Get the current intance of firebase
-        mAuth = FirebaseAuth.getInstance();
-        loginButton.setReadPermissions("email", "public_profile");
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-            }
-        });
+            builder1.setPositiveButton(
+                    "Ok",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
 
 
 
-        bSignIn.setSize(SignInButton.SIZE_WIDE);
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }
+            int i = random.nextInt(images.length);
+            Glide.with(this).load(images[i]).into(background);
 
-        // Configure Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.web_client_id))
-                .requestEmail()
-                .build();
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
+            //Get the current intance of firebase
+            mAuth = FirebaseAuth.getInstance();
+            loginButton.setReadPermissions("email", "public_profile");
+            loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                    handleFacebookAccessToken(loginResult.getAccessToken());
+                }
 
-        // Initialize Facebook Login button
+                @Override
+                public void onCancel() {
+                    Log.d(TAG, "facebook:onCancel");
+                }
+
+                @Override
+                public void onError(FacebookException error) {
+                    Log.d(TAG, "facebook:onError", error);
+                }
+            });
+
+
+            bSignIn.setSize(SignInButton.SIZE_WIDE);
+
+            // Configure Google Sign In
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.web_client_id))
+                    .requestEmail()
+                    .build();
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+
+            // Initialize Facebook Login button
 
 
 
@@ -236,6 +257,17 @@ public class LogInActivity extends AppCompatActivity {
             Log.d(TAG,"No user");
         }
     }
+    public  boolean isInternetConnection() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getActiveNetworkInfo() != null) {
+            return connectivityManager.getActiveNetworkInfo().isConnectedOrConnecting();
+
+        }else {
+            return false;
+        }
+    }
+
+
 
 
 

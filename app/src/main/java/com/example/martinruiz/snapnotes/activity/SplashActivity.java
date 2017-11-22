@@ -23,17 +23,14 @@ public class SplashActivity extends AppCompatActivity {
         if(mAuth.getCurrentUser() == null){
             Intent intent = new Intent(this, LogInActivity.class);
             startActivity(intent);
-//            Log.d("Splash","login");
         }else{
             prefs = this.getSharedPreferences("com.example.martinruiz.snapnotes."+mAuth.getCurrentUser().getUid(), Context.MODE_PRIVATE);
             if(!prefs.getBoolean("calendar",false)) {
                 Intent intent = new Intent(this, CalendarActivity.class);
                 startActivity(intent);
-//                Log.d("Splash","calendar");
             }else {
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
-//                Log.d("Splash","main");
             }
         }
         finish();
