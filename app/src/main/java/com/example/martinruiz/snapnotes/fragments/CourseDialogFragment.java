@@ -164,7 +164,6 @@ public class CourseDialogFragment extends DialogFragment{
             endTime.setText(course.get24hEndTime());
         }
 
-
         startTime.setOnClickListener(new View.OnClickListener() {
 
             @Override

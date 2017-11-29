@@ -13,7 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Layout;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -211,9 +213,14 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
 
         String sDay = (String) weekDay.getSelectedItem();
         Day day = Day.stringToDay(sDay);
+        String cTitle = title.getText()
+                .toString().equals("") ?
+                title.getHint().toString() :
+                title.getText().toString();
+
 
         Course course = new Course(
-                title.getText().toString(),
+                cTitle,
                 day,
                 start.getText().toString(),
                 end.getText().toString()

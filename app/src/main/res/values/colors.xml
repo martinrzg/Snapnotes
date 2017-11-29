@@ -21,13 +21,13 @@
 
     <color name="background_filter">#6481d4fa</color>
 
-    <color name="odd_hour">#81d4fa</color>
-    <color name="even_hour">#ffee58</color>
-    <color name="odd_day">#81d4fa</color>
-    <color name="even_day">#ffee58</color>
+    <color name="odd_hour">#81D4FA</color>
+    <color name="even_hour">#FFF59D</color>
+    <color name="odd_day">#81D4FA</color>
+    <color name="even_day">#FFF59D</color>
 
-    <color name="col_odd_light">#CEECED</color>
-    <color name="col_even_light">#fff8bc</color>
+    <color name="col_odd_light">#E1F5FE</color>
+    <color name="col_even_light">#FFFDE7</color>
 
     <color name="course_dialog">#009688</color>
     <color name="negative_action">#F44336</color>
