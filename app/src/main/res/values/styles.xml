@@ -18,4 +18,10 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="TimePickerTheme" parent="Base.V7.Theme.AppCompat.Dialog">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/course_dialog</item>
+    </style>
+
 </resources>

@@ -81,6 +81,7 @@ public class CalendarActivity extends Activity
     private SharedPreferences prefs;
 
     @BindView(R.id.bCalendarSync) Button bCalendarSync;
+    @BindView(R.id.bCalendarCreate) Button bCalendarCreate;
 
     /**
      * Create the main activity.
@@ -115,6 +116,12 @@ public class CalendarActivity extends Activity
     public void getCalendar(){
         getCalendarsFromApi();
 
+    }
+
+    @OnClick(R.id.bCalendarCreate)
+    public void changeToCalendarCreator(){
+        Intent i = new Intent(this, CalendarCreatorActivity.class);
+        startActivity(i);
     }
 
 

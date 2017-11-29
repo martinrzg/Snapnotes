@@ -7,4 +7,14 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="web_client_id">911951970080-46lnuoqdhs83a6eeubie28vq003mikkt.apps.googleusercontent.com</string>
     <string name="sing_in_fail">Sing in fail</string>
+
+    <string-array name="days">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
 </resources>
