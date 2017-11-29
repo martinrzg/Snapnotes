@@ -25,11 +25,16 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.martinruiz.snapnotes.DatabaseCRUD;
+import com.example.martinruiz.snapnotes.DatabaseModel.BoardContent;
 import com.example.martinruiz.snapnotes.R;
 import com.example.martinruiz.snapnotes.fragments.CourseDialogFragment;
 import com.example.martinruiz.snapnotes.util.DisplayTool;
 import com.example.martinruiz.snapnotes.views.calendar.Course;
 import com.example.martinruiz.snapnotes.views.calendar.Day;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
@@ -127,7 +132,19 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
 
     @OnClick(R.id.calendar_save)
     public void saveCoursesInFirebase(){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+        for (Course c : courseList){
+            DatabaseCRUD.writeNewCalendar(
+                    mDatabase.child(mAuth.getUid()),
+                    c.toJSONCourses()
+            );
+            DatabaseCRUD.writeNewBoard(
+                    mDatabase.child(mAuth.getUid()),
+                    new BoardContent(c.getName())
+            );
+        }
     }
 
     private ConstraintLayout getColumn(Course course){
