@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Layout;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -31,6 +32,7 @@ import com.example.martinruiz.snapnotes.views.calendar.Course;
 import com.example.martinruiz.snapnotes.views.calendar.Day;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 import java.util.zip.Inflater;
 
 import butterknife.BindView;
@@ -50,12 +52,16 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
     @BindView(R.id.col_hours) ConstraintLayout hoursColumn;
 
     private View selectedView;
+    private ArrayList<Course> courseList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar_creator);
         ButterKnife.bind(this);
+
+        // Init class attributes
+        courseList = new ArrayList<>();
 
         // Create row titles
         constructHoursColumn();
@@ -119,6 +125,11 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
     }
 
 
+    @OnClick(R.id.calendar_save)
+    public void saveCoursesInFirebase(){
+
+    }
+
     private ConstraintLayout getColumn(Course course){
         ConstraintLayout weekDay;
 
@@ -167,8 +178,12 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
         courseCell.setBackgroundColor(getResources().getColor(color));
 
         weekCol.addView(courseCell);
+        courseList.add(course);
+
         courseCell.setTranslationY(margin);
         courseCell.setTranslationX(gap/2);
+
+        printCourseList();
     }
 
 
@@ -247,11 +262,31 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
     @Override
     public void onDeleteClick(DialogFragment dialog){
         ConstraintLayout root = (ConstraintLayout) selectedView.getParent();
-
-        System.out.println("Root: "+root);
+        CourseDialogFragment cDialog = (CourseDialogFragment) dialog;
+        Course selectedCourse = getEqualCourse(courseList, cDialog.getCourse());
 
         root.removeView(selectedView);
+        courseList.remove(selectedCourse);
+
+        printCourseList();
+
         dialog.dismiss();
+    }
+
+    public void printCourseList(){
+        Log.i("Courses", "Size: "+courseList.size());
+        for (Course c : courseList) {
+            Log.i("Courses", c.toString());
+        }
+    }
+
+    public Course getEqualCourse(ArrayList<Course> list, Course course){
+        for (Course c : list) {
+            if (c.toString().equals(course.toString())){
+                return c;
+            }
+        }
+        return null;
     }
 
     public void constructHoursColumn(){

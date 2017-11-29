@@ -2,6 +2,8 @@ package com.example.martinruiz.snapnotes.views.calendar;
 
 import android.view.View;
 
+import com.example.martinruiz.snapnotes.DatabaseModel.Courses;
+
 import java.io.Serializable;
 
 /**
@@ -107,6 +109,20 @@ public class Course implements Serializable {
 
     public void setEndMinute(int endMinute) {
         this.endMinute = endMinute;
+    }
+
+    public Courses toJSONCourses(){
+        return new Courses(
+                name,
+                day.toString(),
+                get24hStartTime(),
+                get24hEndTime()
+        );
+    }
+
+    @Override
+    public String toString(){
+        return "["+name+"] "+day+" - From "+startHour+":"+startMinute+" to "+endHour+":"+endMinute;
     }
 
 }
