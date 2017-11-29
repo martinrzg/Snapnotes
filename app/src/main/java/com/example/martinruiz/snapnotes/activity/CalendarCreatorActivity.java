@@ -127,13 +127,15 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         for (Course c : courseList){
-            DatabaseCRUD.writeNewCalendar(
-                    mDatabase.child(mAuth.getUid()),
-                    c.toJSONCourses()
-            );
+
             DatabaseCRUD.writeNewBoard(
                     mDatabase.child(mAuth.getUid()),
                     new BoardContent(c.getName())
+            );
+
+            DatabaseCRUD.writeNewCalendar(
+                    mDatabase.child(mAuth.getUid()),
+                    c.toJSONCourses()
             );
         }
 
