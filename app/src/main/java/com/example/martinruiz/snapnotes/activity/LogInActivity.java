@@ -32,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.util.Calendar;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -161,7 +162,7 @@ public class LogInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(getApplicationContext() ,MainActivity.class);
+                            Intent intent = new Intent(getApplicationContext() ,CalendarActivity.class);
                             intent.putExtra("uid",user.getUid());
                             startActivity(intent);
                             finish();

@@ -5,6 +5,7 @@ import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.FragmentManagerNonConfig;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
@@ -70,16 +71,6 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
 
         // Create row titles
         constructHoursColumn();
-
-
-        Course course = new Course("Nueva materia para esta semana hola", Day.MONDAY, "8:30", "10:15");
-        Course course1 = new Course("Historia de México", Day.MONDAY, "15:15", "16:00");
-        Course course2 = new Course("Otra materia carnal", Day.MONDAY, "01:00", "02:00");
-
-        addNewCourse(course);
-        addNewCourse(course1);
-        addNewCourse(course2);
-
     }
 
     public void showDialogWithDay(Day day){
@@ -145,6 +136,9 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
                     new BoardContent(c.getName())
             );
         }
+
+        Intent main = new Intent(this, MainActivity.class);
+        startActivity(main);
     }
 
     private ConstraintLayout getColumn(Course course){
@@ -199,8 +193,6 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
 
         courseCell.setTranslationY(margin);
         courseCell.setTranslationX(gap/2);
-
-        printCourseList();
     }
 
 
@@ -284,8 +276,6 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
 
         root.removeView(selectedView);
         courseList.remove(selectedCourse);
-
-        printCourseList();
 
         dialog.dismiss();
     }
