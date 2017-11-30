@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.martinruiz.snapnotes.R;
 import com.example.martinruiz.snapnotes.adapters.DepthPageTransformer;
 import com.example.martinruiz.snapnotes.adapters.MainPageAdapter;
+import com.example.martinruiz.snapnotes.fragments.GalleryFragment;
 import com.example.martinruiz.snapnotes.fragments.SimpleCameraFragment;
 import com.example.martinruiz.snapnotes.views.SnapTabs;
 import com.google.firebase.auth.FirebaseAuth;
@@ -106,6 +107,17 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Sorry!!!, you can't use this app without granting permission", Toast.LENGTH_LONG).show();
                 //finish();
             }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(viewPager.getCurrentItem() == 1){
+            super.onBackPressed();
+        }else if(viewPager.getCurrentItem() == 0){
+            viewPager.setCurrentItem(1);
+        }else{
+            viewPager.setCurrentItem(1);
         }
     }
 
