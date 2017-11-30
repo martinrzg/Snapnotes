@@ -4,6 +4,8 @@ package com.example.martinruiz.snapnotes.fragments;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,6 +19,9 @@ import android.widget.Toast;
 import com.example.martinruiz.snapnotes.DatabaseModel.BoardContent;
 import com.example.martinruiz.snapnotes.DatabaseModel.Notes;
 import com.example.martinruiz.snapnotes.R;
+import com.example.martinruiz.snapnotes.adapters.GalleryAdapter;
+import com.example.martinruiz.snapnotes.utils.UIHelper;
+import com.example.martinruiz.snapnotes.views.OverlayView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.util.ArrayList;
 
@@ -47,6 +53,9 @@ public class GalleryFragment extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     private FirebaseRecyclerAdapter adapter;
     private FirebaseRecyclerAdapter adapter1;
+    private RecyclerView.Adapter galleryAdapter;
+
+
     private String selectedBoard;
 
 
@@ -102,7 +111,7 @@ public class GalleryFragment extends Fragment {
 
                          tvGalleryName.setText(selectedBoard);
                          ibBack.setVisibility(View.VISIBLE);
-
+                        /*
                          //TODO: Delete to add gridview till next todo
                          Query query1 = FirebaseDatabase.getInstance()
                                  .getReference()
@@ -146,9 +155,9 @@ public class GalleryFragment extends Fragment {
                          rvGallery.setAdapter(adapter1);
                          adapter1.startListening();
                          //TODO: End delete
+                        */
 
-
-                         Toast.makeText(getActivity(), "Item clicked at " + boardContent.getName(), Toast.LENGTH_SHORT).show();
+                         //Toast.makeText(getActivity(), "Item clicked at " + boardContent.getName(), Toast.LENGTH_SHORT).show();
                      }
                  });
 
@@ -164,8 +173,10 @@ public class GalleryFragment extends Fragment {
         };
 
         layoutManager = new LinearLayoutManager(getContext());
+
         rvGallery.setAdapter(adapter);
         rvGallery.setLayoutManager(layoutManager);
+        rvGallery.setItemAnimator(new DefaultItemAnimator());
         adapter.startListening();
 
         ibBack.setOnClickListener(new View.OnClickListener() {
@@ -182,7 +193,13 @@ public class GalleryFragment extends Fragment {
         tvGalleryName.setText("Gallery");
         ibBack.setVisibility(View.GONE);
         rvGallery.setAdapter(adapter);
-
+        layoutManager = new LinearLayoutManager(getContext());
+        rvGallery.setLayoutManager(layoutManager);
+        ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) rvGallery.getLayoutParams();
+        marginLayoutParams.setMarginStart(UIHelper.getPixelValue(getContext(),16));
+        marginLayoutParams.setMarginEnd(UIHelper.getPixelValue(getContext(),16));
+        marginLayoutParams.topMargin = UIHelper.getPixelValue(getContext(),80);
+        rvGallery.setLayoutParams(marginLayoutParams);
     }
 
     public static class BoardsHolder extends RecyclerView.ViewHolder {
@@ -251,9 +268,7 @@ public class GalleryFragment extends Fragment {
         adapter.stopListening();
     }
 
-    public static void getBoardNotes(DatabaseReference mDatabase, String boardName)  {
-
-
+    public void getBoardNotes(DatabaseReference mDatabase, String boardName)  {
         mDatabase.child(BOARDS).child(boardName).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -281,9 +296,34 @@ public class GalleryFragment extends Fragment {
                                     Notes notes = boardContent.getNotes().get(key);
                                     boardNotes.add(notes);
                                     Log.d("Note name", notes.getId());
-
                                 }
                                 //TODO: add the gridview here
+                                ArrayList<String> notesUrls = new ArrayList<>();
+                                for (int i = 0; i < boardNotes.size(); i++) {
+                                    notesUrls.add(i, boardNotes.get(i).getUrl());
+                                }
+
+                                galleryAdapter = new GalleryAdapter(boardNotes, R.layout.item_gallery_image,
+                                        getActivity(),
+                                        (note, position) -> {
+                                            OverlayView overlayView = new OverlayView(getContext());
+
+                                            new ImageViewer.Builder(getContext(),notesUrls)
+                                                    .setStartPosition(position)
+                                                    .setOverlayView(overlayView)
+                                                    .show();
+                                        });
+
+                                layoutManager = new GridLayoutManager(getContext(),2);
+                                rvGallery.setLayoutManager(layoutManager);
+                                rvGallery.setAdapter(galleryAdapter);
+                                ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) rvGallery.getLayoutParams();
+                                marginLayoutParams.setMarginStart(UIHelper.getPixelValue(getContext(),4));
+                                marginLayoutParams.setMarginEnd(UIHelper.getPixelValue(getContext(),4));
+                                marginLayoutParams.topMargin = UIHelper.getPixelValue(getContext(),84);
+                                rvGallery.setLayoutParams(marginLayoutParams);
+
+
                             }else{
 
                             }
@@ -297,4 +337,6 @@ public class GalleryFragment extends Fragment {
                     }
                 });
     }
+
+
 }
