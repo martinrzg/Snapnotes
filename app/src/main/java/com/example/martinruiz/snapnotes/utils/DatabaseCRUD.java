@@ -87,6 +87,9 @@ public class DatabaseCRUD {
 
 
     }
+    private static void deleteNote(DatabaseReference mDatabase, String boardId, String noteID) {
+            mDatabase.child(BOARDS).child(boardId).child("notes").child(noteID).removeValue();
+    }
 
     /**
      * Method to add new Board to the user board.
