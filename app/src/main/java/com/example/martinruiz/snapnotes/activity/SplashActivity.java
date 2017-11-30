@@ -25,6 +25,7 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(intent);
         }else{
             prefs = this.getSharedPreferences("com.example.martinruiz.snapnotes."+mAuth.getCurrentUser().getUid(), Context.MODE_PRIVATE);
+            //prefs.edit().putBoolean("calendar",false).apply();
             if(!prefs.getBoolean("calendar",false)) {
                 Intent intent = new Intent(this, CalendarActivity.class);
                 startActivity(intent);
