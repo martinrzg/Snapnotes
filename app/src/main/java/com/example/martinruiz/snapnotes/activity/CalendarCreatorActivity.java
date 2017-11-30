@@ -1,8 +1,10 @@
 package com.example.martinruiz.snapnotes.activity;
 
+import android.accounts.AccountManager;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -45,6 +47,8 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
 
     private View selectedView;
     private ArrayList<Course> courseList;
+
+    private static final String PREF_ACCOUNT_NAME = "accountName";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +116,12 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+        DatabaseCRUD.writeNewBoard(
+                mDatabase.child(mAuth.getUid()),
+                new BoardContent("Others")
+        );
+
+
         for (Course c : courseList){
 
             DatabaseCRUD.writeNewBoard(
@@ -125,8 +135,14 @@ public class CalendarCreatorActivity extends FragmentActivity implements CourseD
             );
         }
 
+
+        SharedPreferences prefs = this.getSharedPreferences("com.example.martinruiz.snapnotes."+mAuth.getCurrentUser().getUid(), Context.MODE_PRIVATE);
+        prefs.edit().putBoolean("calendar",true).apply();
+
         Intent main = new Intent(this, MainActivity.class);
         startActivity(main);
+
+        finish();
     }
 
     private ConstraintLayout getColumn(Course course){

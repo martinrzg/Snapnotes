@@ -108,7 +108,6 @@ public class CalendarActivity extends Activity
 
         if(getIntent().getBooleanExtra("Update", false)){
             getCalendarsFromApi();
-
         }
     }
 
@@ -122,6 +121,7 @@ public class CalendarActivity extends Activity
     public void changeToCalendarCreator(){
         Intent i = new Intent(this, CalendarCreatorActivity.class);
         startActivity(i);
+        finish();
     }
 
 
