@@ -8,22 +8,16 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.martinruiz.snapnotes.R;
-import com.example.martinruiz.snapnotes.activity.CalendarCreatorActivity;
-import com.example.martinruiz.snapnotes.util.DisplayTool;
 import com.example.martinruiz.snapnotes.views.calendar.Course;
-
-import butterknife.OnClick;
 
 /**
  * Created by isaac on 11/15/17.

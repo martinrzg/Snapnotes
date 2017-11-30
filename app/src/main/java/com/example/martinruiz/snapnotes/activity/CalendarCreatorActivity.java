@@ -1,36 +1,24 @@
 package com.example.martinruiz.snapnotes.activity;
 
-import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.FragmentManager;
-import android.app.FragmentManagerNonConfig;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
-import android.text.Layout;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.martinruiz.snapnotes.DatabaseCRUD;
+import com.example.martinruiz.snapnotes.utils.DatabaseCRUD;
 import com.example.martinruiz.snapnotes.DatabaseModel.BoardContent;
 import com.example.martinruiz.snapnotes.R;
 import com.example.martinruiz.snapnotes.fragments.CourseDialogFragment;
-import com.example.martinruiz.snapnotes.util.DisplayTool;
+import com.example.martinruiz.snapnotes.utils.DisplayTool;
 import com.example.martinruiz.snapnotes.views.calendar.Course;
 import com.example.martinruiz.snapnotes.views.calendar.Day;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,8 +26,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.function.Predicate;
-import java.util.zip.Inflater;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

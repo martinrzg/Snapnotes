@@ -1,4 +1,4 @@
-package com.example.martinruiz.snapnotes.util;
+package com.example.martinruiz.snapnotes.utils;
 
 import android.content.Context;
 import android.content.res.Resources;

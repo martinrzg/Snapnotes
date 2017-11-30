@@ -30,6 +30,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".activity.MainActivity"
+            android:theme="@style/FullScreenTheme">
+        </activity>
+
         <activity android:name=".activity.LogInActivity" />
 
         <activity
