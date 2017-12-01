@@ -1,2 +1,2 @@
 # Snapnotes
-To be described
+> A simple weather android app inspired in material design
