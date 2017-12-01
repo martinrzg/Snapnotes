@@ -119,6 +119,10 @@ public class CalendarActivity extends Activity
 
     @OnClick(R.id.buttonSkip)
     public void skipCalendar(){
+
+        SharedPreferences prefs = this.getSharedPreferences("com.example.martinruiz.snapnotes."+mAuth.getCurrentUser().getUid(), Context.MODE_PRIVATE);
+        prefs.edit().putBoolean("calendar",true).apply();
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
