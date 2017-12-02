@@ -35,15 +35,15 @@ With snapnotes you can create your own schedule or sync with google calendar.
  # Disclaimer 
  - For sync, on the second device you need to skip calendar setup. 
  
-#Architecture Diagram
+# Architecture Diagram
 ![Sample image](img/snapnotes_arch.png) 
 
-##Develop by 
+# Develop by 
 * Martin Ruiz Guadarrama
 * Erik Martin Aleman
 * Isaac Secundino Montoya
 
-## Licence
+# Licence
 MIT &copy; Snapnotes
 
 
