@@ -82,6 +82,7 @@ public class CalendarActivity extends Activity
 
     @BindView(R.id.bCalendarSync) Button bCalendarSync;
     @BindView(R.id.bCalendarCreate) Button bCalendarCreate;
+    @BindView(R.id.buttonSkip) Button buttonSkip;
 
     /**
      * Create the main activity.
@@ -114,7 +115,13 @@ public class CalendarActivity extends Activity
     @OnClick(R.id.bCalendarSync)
     public void getCalendar(){
         getCalendarsFromApi();
+    }
 
+    @OnClick(R.id.buttonSkip)
+    public void skipCalendar(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @OnClick(R.id.bCalendarCreate)

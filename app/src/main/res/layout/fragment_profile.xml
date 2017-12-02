@@ -20,8 +20,7 @@
         android:layout_marginStart="16dp"
         android:gravity="end|top"
         android:orientation="horizontal"
-        tools:background="#fffffff"
-        >
+        tools:background="#fffffff">
         <ImageView
             android:id="@+id/imageViewSettings"
             android:layout_width="32dp"
@@ -29,6 +28,38 @@
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_settings_white_24dp"/>
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="112dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/ic_launcher_round"
+        />
+    <TextView
+        android:id="@+id/textViewProfileName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="288dp"
+        android:textSize="24sp"
+        android:gravity="center_horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        />
+
+    <TextView
+        android:id="@+id/textViewEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="336dp"
+        android:textSize="24sp"
+        android:gravity="center_horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        />
 
 
 </FrameLayout>

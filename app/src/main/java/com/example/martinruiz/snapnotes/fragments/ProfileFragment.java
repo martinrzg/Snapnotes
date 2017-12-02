@@ -8,7 +8,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.martinruiz.snapnotes.R;
 import com.example.martinruiz.snapnotes.activity.LogInActivity;
 import com.example.martinruiz.snapnotes.activity.SettingsActivity;
@@ -19,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -27,6 +32,9 @@ import butterknife.OnClick;
  */
 public class ProfileFragment extends Fragment {
 
+    @BindView(R.id.textViewProfileName) TextView textViewProfileName;
+    @BindView(R.id.imageViewProfile) ImageView imageViewProfile;
+    @BindView(R.id.textViewEmail) TextView textViewEmail;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -43,6 +51,13 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this,view);
         view.setTag(20);
+
+        textViewProfileName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        textViewEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+        String photoUrl = FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString();
+        Glide.with(view).load(photoUrl).apply(RequestOptions.circleCropTransform()).into(imageViewProfile);
+
         return view;
     }
 
@@ -50,16 +65,6 @@ public class ProfileFragment extends Fragment {
     public void settingsClick(){
         Intent settingsIntent = new Intent(getActivity(), SettingsActivity.class);
         startActivity(settingsIntent);
-        /*AuthUI.getInstance().signOut(getActivity())
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Intent loginIntent = new Intent(getActivity(), LogInActivity.class);
-                        startActivity(loginIntent);
-                        getActivity().finish();
-                    }
-                });
-        */
     }
 
 }

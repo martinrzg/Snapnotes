@@ -17,6 +17,17 @@
         tools:background="#fffffff"
         >
         <ImageView
+            android:id="@+id/imageViewSnapLogo"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@mipmap/ic_snapnotes"
+            android:layout_gravity="center_vertical"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <ImageView
             android:id="@+id/imageViewCameraFlash"
             android:layout_width="24dp"
             android:layout_height="24dp"

@@ -308,9 +308,16 @@ public class GalleryFragment extends Fragment {
                                         (note, position) -> {
                                             OverlayView overlayView = new OverlayView(getContext());
 
-                                            new ImageViewer.Builder(getContext(),notesUrls)
+                                            ImageViewer imageViewer= new ImageViewer.Builder(getContext(),notesUrls)
                                                     .setStartPosition(position)
                                                     .setOverlayView(overlayView)
+                                                    .setImageChangeListener(position1 -> {
+                                                        String url = boardNotes.get(position1).getUrl();
+                                                        overlayView.setCurrentNote( boardNotes.get(position1) );
+                                                        overlayView.setBoardID(boardContent.getName());
+                                                        overlayView.setShareText(url);
+                                                        overlayView.setRecognizeText(boardNotes.get(position1).getText());
+                                                    })
                                                     .show();
                                         });
 
@@ -337,4 +344,5 @@ public class GalleryFragment extends Fragment {
                     }
                 });
     }
+
 }

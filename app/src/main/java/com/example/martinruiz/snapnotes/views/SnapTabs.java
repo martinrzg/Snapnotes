@@ -34,6 +34,7 @@ public class SnapTabs extends FrameLayout implements ViewPager.OnPageChangeListe
     @BindView(R.id.imageViewProfileButton)ImageView imageViewProfileButton;
     @BindView(R.id.imageViewCameraFlash)ImageView imageViewCameraFlash;
     @BindView(R.id.imageViewCameraSwitch)ImageView imageViewCameraSwitch;
+    @BindView(R.id.imageViewSnapLogo)ImageView imageViewSnapLogo;
     @BindView(R.id.viewPageIndicator) View viewPageIndicator;
 
     private int center, side, distanceTranslationX, indicatorTranslationX, distanceTranslationY;
@@ -118,13 +119,16 @@ public class SnapTabs extends FrameLayout implements ViewPager.OnPageChangeListe
 
         imageViewCameraSwitch.setAlpha(1-percentFromCenter);
         imageViewCameraFlash.setAlpha(1-percentFromCenter);
+        imageViewSnapLogo.setAlpha(1-percentFromCenter);
 
         if(percentFromCenter >= 0.95){
             imageViewCameraSwitch.setVisibility(GONE);
             imageViewCameraFlash.setVisibility(GONE);
+            imageViewSnapLogo.setVisibility(GONE);
         }else {
             imageViewCameraSwitch.setVisibility(VISIBLE);
             imageViewCameraFlash.setVisibility(VISIBLE);
+            imageViewSnapLogo.setVisibility(VISIBLE);
         }
 
         viewPageIndicator.setAlpha(percentFromCenter);
