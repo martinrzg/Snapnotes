@@ -6,7 +6,7 @@ With snapnotes you can create your own schedule or sync with google calendar.
 >
 >The philosophy behind snapnotes is to easily take photos of your class notes and to have a quick and neat access to them.
 
-![Sample image](img/) 
+![Sample image](img/ss.jpg) 
 
 
 # Build with & Tested with
