@@ -103,7 +103,7 @@ public class OverlayView extends RelativeLayout {
     private void sendShareIntent() {
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/html");
-        sharingIntent.putExtra(Intent.EXTRA_TEXT, sharingText)
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, sharingText);
         getContext().startActivity(Intent.createChooser(sharingIntent, "Share using"));
     }
 
