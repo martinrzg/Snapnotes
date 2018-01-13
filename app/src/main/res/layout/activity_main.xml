@@ -4,20 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.martinruiz.snapnotes.MainActivity"
-    android:background="@color/black">
+    tools:context="com.example.martinruiz.snapnotes.activity.MainActivity"
+    >
 
-    <View
-        android:id="@+id/ma_background_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/light_blue" />
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/ma_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
     </android.support.v4.view.ViewPager>
+
+
+
+
+    <com.example.martinruiz.snapnotes.views.SnapTabs
+        android:id="@+id/snapTabs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+
+
 
 </android.support.constraint.ConstraintLayout>
