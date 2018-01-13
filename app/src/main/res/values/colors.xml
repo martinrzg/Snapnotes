@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#3f51b5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">@color/yellow</color>
 
@@ -9,13 +9,28 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="black_overlay">#66000000</color>
+    <color name="black_text">#16191C</color>
     <color name="white_t75">#b4ffffff</color>
 
-    <color name="light_blue">#81d4fa</color>
-    <color name="light_purple">#ab47bc</color>
+    <color name="light_blue">#0EADFF</color>
+    <color name="light_purple">#A05DCD</color>
     <color name="yellow">#ffee58</color>
     <color name="red">#ff0000</color>
-    <color name="light_grey">#e0e0e0</color>
+    <color name="light_grey">#CED4DA</color>
     <color name="dark_grey">#9e9e9e</color>
     <color name="card_background_color">@color/white</color>
+
+    <color name="background_filter">#6481d4fa</color>
+
+    <color name="odd_hour">#81D4FA</color>
+    <color name="even_hour">#FFF59D</color>
+    <color name="odd_day">#81D4FA</color>
+    <color name="even_day">#FFF59D</color>
+
+    <color name="col_odd_light">#E1F5FE</color>
+    <color name="col_even_light">#FFFDE7</color>
+
+    <color name="course_dialog">#009688</color>
+    <color name="negative_action">#F44336</color>
+    <color name="positive_action">#8BC34A</color>
 </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="46dp"
+    android:elevation="1dp">
+
+    <TextView
+        android:id="@+id/hour_title"
+        android:layout_width="64dp"
+        android:layout_height="46dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="14sp" />
+</android.support.v7.widget.LinearLayoutCompat>

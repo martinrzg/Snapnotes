@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:layout_gravity="bottom"
+    tools:background="@color/light_purple">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:gravity="end|top"
+        android:orientation="horizontal"
+        tools:background="#fffffff"
+        >
+        <ImageView
+            android:id="@+id/imageViewSnapLogo"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@mipmap/ic_snapnotes"
+            android:layout_gravity="center_vertical"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <ImageView
+            android:id="@+id/imageViewCameraFlash"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_flash_off_white_24px"/>
+        <ImageView
+            android:id="@+id/imageViewCameraSwitch"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_camera_front_white_24dp"/>
+    </LinearLayout>
+
+
+
+
+
+
+    <ImageView
+        android:id="@+id/imageViewCameraButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="96dp"
+        android:src="@drawable/large_circle"/>
+
+    <ImageView
+        android:id="@+id/imageViewGalleryButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="56dp"
+        android:layout_gravity="start|bottom"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_photo_library_24dp"/>
+
+    <ImageView
+        android:id="@+id/imageViewProfileButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="56dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_person_24dp"/>
+    <!-- TODO reduce viewIndicator width-->
+    <View
+        android:id="@+id/viewPageIndicator"
+        android:layout_width="48dp"
+        android:layout_height="3dp"
+        android:layout_gravity="bottom|center"
+        android:background="@drawable/indicator_background"
+        android:layout_marginBottom="44dp"
+        />
+
+
+
+</FrameLayout>
